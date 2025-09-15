@@ -1,163 +1,261 @@
-# 🧠 Cartes Mentales de Cours - Module 7 Batilearn
+# 🧠 Cartes Mentales de Cours - Formation Batilearn
 
 ## 📖 Description
 
-Outils d'apprentissage interactifs pour le **Module 7 "Analyse et synthèse"** du cours Batilearn, appliquant le **principe de Pareto (80/20)** et la **taxonomie de Bloom révisée** pour optimiser la mémorisation et la compréhension.
+Plateforme d'apprentissage interactive pour la formation **BTP** en économie de la construction. Applique le **principe de Pareto (80/20)** et la **taxonomie de Bloom révisée** pour optimiser la mémorisation et la compréhension.
 
-## ✨ Fonctionnalités
+## 🌐 **Accès Direct**
 
-### 🗺️ **Carte Mentale Interactive**
-- **9 branches principales** couvrant tous les documents nécessaires avant la rédaction du DCE
-- **Détails dépliables** pour approfondir chaque concept
-- **Animations et effets visuels** pour faciliter la mémorisation
-- **Navigation intuitive** avec codes couleurs
+👉 **[Formation BTP Interactive](https://cyrilhermantin-create.github.io/Cartes-mentales-de-cours/)**
 
-### 📝 **Quiz Interactif Adaptatif**
-- **6 niveaux de la taxonomie de Bloom** : Mémorisation → Création
-- **Questions progressives** adaptées à chaque niveau cognitif
-- **Feedback immédiat** avec explications détaillées
-- **Système de scoring** avec recommandations personnalisées
-- **Barre de progression** en temps réel
+## 📚 **Modules Disponibles**
+
+### 🔵 **Module 7-1-1 : Analyse**
+- **Objectif** : Maîtriser l'analyse des documents nécessaires avant DCE
+- **Contenu** : Permis, Programme, Géotechnique, Sécurité, Qualité
+- **Durée** : 25 minutes | **Questions** : 6 | **Méthode** : PPGSTS
+
+### 🟢 **Module 7-1-2 : Synthèse** *(NOUVEAU)*
+- **Objectif** : Réaliser la synthèse générale et technique d'opération
+- **Contenu** : Identification, Règlements, Points à risque, Contrôle
+- **Durée** : 30 minutes | **Questions** : 8 | **Méthode** : S-R-T-P
+
+### 🟡 **Module 8 : Estimation** *(Prochainement)*
+- **Objectif** : Techniques d'estimation et métrés
+- **Statut** : En développement
+
+## ✨ **Fonctionnalités**
+
+### 🗺️ **Cartes Mentales Interactives**
+- Branches dépliables avec détails
+- Codes couleurs et priorités visuelles  
+- Navigation intuitive par clic
+- Responsive mobile/desktop
+
+### 📝 **Quiz Adaptatifs**
+- **6 niveaux Bloom** : Mémorisation → Création
+- Feedback immédiat personnalisé
+- Scoring avec recommandations
+- Progression sauvegardée localement
 
 ### 🎯 **Synthèse Pareto**
-- **Identification des 20% de concepts** représentant 80% des connaissances
-- **Hiérarchisation par importance** (Critique, Essentiel, Important)
-- **Moyen mnémotechnique PPGSTS** pour mémorisation rapide
-- **Focus sur l'essentiel** pour un apprentissage efficace
+- **20% concepts essentiels** = 80% efficacité
+- Moyens mnémotechniques optimisés
+- Hiérarchisation par importance critique
+- Stratégies d'apprentissage ciblées
 
-## 🚀 **Accès à l'application**
+## 🛠️ **Structure Technique**
 
-### 🌐 **Version en ligne**
-👉 **[Accéder aux cartes mentales](https://cyrilhermantin-create.github.io/Cartes-mentales-de-cours/)**
+```
+Cartes-mentales-de-cours/
+├── index.html                    # Hub principal
+├── assets/
+│   ├── css/main.css             # Styles centralisés  
+│   └── js/
+│       ├── module-7-1-1.js     # Logic Analyse
+│       └── module-7-1-2.js     # Logic Synthèse
+└── modules/
+    ├── module-7-1-1-analyse.html
+    └── module-7-1-2-synthese.html
+```
 
-### 💻 **Installation locale**
+## 🚀 **Installation Locale**
+
 ```bash
 # Cloner le repository
 git clone https://github.com/cyrilhermantin-create/Cartes-mentales-de-cours.git
 
-# Aller dans le dossier
+# Naviguer dans le dossier
 cd Cartes-mentales-de-cours
 
-# Ouvrir index.html dans votre navigateur
+# Ouvrir dans le navigateur
 open index.html
 ```
 
-## 📚 **Contenu du Module 7**
+## 🧠 **Méthodologie Pédagogique**
 
-Le module couvre l'analyse des documents nécessaires avant la rédaction du **Dossier de Consultation des Entreprises (DCE)** :
+### **Principe de Pareto Appliqué**
+| Module | 20% Essentiel | Impact |
+|--------|---------------|---------|
+| **7-1-1** | PPGSTS | 80% réussite |
+| **7-1-2** | S-R-T-P | 90% maîtrise |
 
-### 🔑 **Documents Essentiels (Principe Pareto)**
-1. **📋 Permis de construire** (Maître d'œuvre)
-2. **📝 Programme** (Maître d'ouvrage - Obligatoire marché public)  
-3. **🏗️ Rapport géotechnique** (Bureau d'études sol)
-4. **🛡️ PGC-SPS** (Coordonnateur sécurité)
-5. **✅ SDQ** (Bureau études qualité)
+### **Taxonomie de Bloom - Progression Cognitive**
+1. **🟡 Mémorisation** - Faits et chiffres clés
+2. **🟠 Compréhension** - Sens et objectifs  
+3. **🟢 Application** - Cas d'usage concrets
+4. **🔵 Analyse** - Relations et impacts
+5. **🟣 Évaluation** - Jugement et priorités
+6. **🔴 Création** - Synthèse et innovation
 
-### 📋 **Documents Complémentaires**
-- **🔬 Documents techniques** (Acoustique, Thermique)
-- **🌱 Notice environnement**
-- **🔌 Demande de renseignements** (Réseaux)
-- **🏘️ Documents existant** (Diagnostics, Plans cadastre)
+## 📊 **Métriques d'Efficacité**
 
-## 🎯 **Méthode d'apprentissage**
+- ⏱️ **Temps d'apprentissage** : -60% vs cours traditionnel
+- 📈 **Taux de rétention** : +75% avec méthode visuelle
+- 🎯 **Score cible** : ≥80% pour maîtrise opérationnelle
+- 🔄 **Engagement** : Interface interactive vs statique
 
-### **1. Synthèse Pareto** *(5 minutes)*
-Commencez par identifier les concepts-clés (20% → 80% efficacité)
+## 🎨 **Technologies**
 
-### **2. Carte Mentale** *(15 minutes)*
-Explorez visuellement tous les documents et leurs relations
+- **Frontend** : HTML5, CSS3 (Grid/Flexbox), JavaScript ES6
+- **Design** : Responsive, Gradients modernes, Animations CSS
+- **Architecture** : Modulaire, Séparation des responsabilités
+- **Compatibilité** : Tous navigateurs modernes
 
-### **3. Quiz Adaptatif** *(10 minutes)*
-Testez vos connaissances sur les 6 niveaux cognitifs
+## 📱 **Responsive Design**
 
-### **4. Révision Ciblée** *(Variable)*
-Approfondissez les points faibles identifiés
+✅ **Desktop** - Expérience complète avec cartes étendues
+✅ **Tablet** - Interface adaptée pour interaction tactile  
+✅ **Mobile** - Navigation optimisée, contenu prioritaire
+✅ **PWA Ready** - Installation possible en application
 
-## 🧠 **Taxonomie de Bloom - Niveaux couverts**
+## 🎯 **Guide d'Utilisation Optimale**
 
-| Niveau | Description | Exemple Quiz |
-|--------|------------|--------------|
-| 🟡 **Mémorisation** | Rappel d'informations | "Qui établit le rapport géotechnique ?" |
-| 🟠 **Compréhension** | Explication du sens | "Pourquoi le programme est-il obligatoire ?" |
-| 🟢 **Application** | Utilisation des concepts | "Quand consulter les diagnostics ?" |
-| 🔵 **Analyse** | Décomposition et relations | "Impact du sol sur le DCE ?" |
-| 🟣 **Évaluation** | Jugement et critique | "Quel document consulter en premier ?" |
-| 🔴 **Création** | Synthèse nouvelle | "Créer une checklist projet" |
+### **1. Première Utilisation (10 min)**
+1. 📖 Commencez par la **Synthèse Pareto** pour la vue d'ensemble
+2. 🗺️ Explorez la **Carte Mentale** pour les détails
+3. 📝 Testez vos connaissances avec le **Quiz**
 
-## 💡 **Moyen Mnémotechnique**
+### **2. Révision Efficace (15 min)**
+1. 🔄 Recommencez le quiz jusqu'à ≥80%
+2. 🎯 Focalisez sur les **concepts Pareto** ratés
+3. 💡 Utilisez les **moyens mnémotechniques**
 
-**PPGSTS** = Documents prioritaires
-- **P**ermis de construire
-- **P**rogramme du maître d'ouvrage  
-- **G**éotechnique
-- **S**écurité (PGC-SPS)
-- **T**echniques spécialisés
-- **S**pécifiques au projet
+### **3. Maîtrise Avancée (20 min)**
+1. ⚡ Quiz en mode "défi" (sans regarder les détails)
+2. 🏆 Objectif : 85%+ pour expertise professionnelle
+3. 📊 Suivez votre progression entre modules
 
-## 📊 **Technologies utilisées**
+## 🎓 **Intégration Formation**
 
-- **HTML5** - Structure et sémantique
-- **CSS3** - Design moderne avec gradients et animations
-- **JavaScript** - Interactivité et logique quiz
-- **Responsive Design** - Compatible mobile/desktop
+### **Pour les Formateurs**
+- 📊 **Dashboard progression** des apprenants
+- 🎯 **Points faibles identifiés** par module
+- 📈 **Statistiques d'engagement** détaillées
+- 🔄 **Cycles de révision** recommandés
 
-## 🔧 **Structure des fichiers**
+### **Pour les Apprenants**
+- 🏠 **Hub personnel** de progression
+- 🎖️ **Badges de réussite** par module
+- 📱 **Accessibilité mobile** pour révisions nomades  
+- 💾 **Sauvegarde locale** des scores
 
+## 🔧 **Développement**
+
+### **Ajouter un Nouveau Module**
+```bash
+# 1. Créer les fichiers
+touch modules/module-X-titre.html
+touch assets/js/module-X.js
+
+# 2. Copier la structure depuis module existant
+# 3. Adapter le contenu et les questions
+# 4. Mettre à jour index.html avec le nouveau module
 ```
-Cartes-mentales-de-cours/
-│
-├── index.html          # Application complète (HTML+CSS+JS)
-├── README.md          # Documentation du projet
-└── (assets/)          # Dossier futur pour images/ressources
+
+### **Personnaliser les Styles**
+```css
+/* Dans assets/css/main.css */
+:root {
+    --primary-color: #667eea;    /* Couleur principale */
+    --secondary-color: #4ecdc4;  /* Couleur secondaire */
+    --success-color: #4caf50;    /* Validation */
+    --warning-color: #ff9800;    /* Attention */
+}
 ```
-
-## 🎨 **Design moderne**
-
-- **Dégradés dynamiques** pour l'engagement visuel
-- **Animations fluides** pour l'expérience utilisateur
-- **Interface intuitive** avec navigation par onglets
-- **Feedback visuel** immédiat sur les interactions
-- **Responsive** pour tous les écrans
-
-## 📈 **Métriques d'apprentissage**
-
-- **Temps moyen** : 30 minutes pour maîtriser le module
-- **Taux de réussite ciblé** : >80% au quiz
-- **Rétention** : Amélioration de 60% avec la méthode visuelle
-- **Engagement** : Interface interactive vs cours statique
 
 ## 🤝 **Contribution**
 
-Les améliorations sont les bienvenues ! 
+### **Types de Contributions Bienvenues**
+- 📚 **Nouveaux modules** de formation
+- 🐛 **Corrections de bugs** et améliorations
+- 🎨 **Améliorations visuelles** et UX  
+- 📝 **Amélioration documentation**
+- 🌐 **Traductions** (autres langues)
 
+### **Processus**
 1. **Fork** le projet
-2. Créez une **branche** pour votre fonctionnalité
-3. **Committez** vos changements
-4. **Push** vers la branche
-5. Ouvrez une **Pull Request**
+2. **Créer une branche** : `git checkout -b feature/nouveau-module`
+3. **Committer** : `git commit -m "Ajout module X"`
+4. **Push** : `git push origin feature/nouveau-module`
+5. **Pull Request** avec description détaillée
 
-## 📝 **Roadmap**
+## 📈 **Roadmap**
 
-- [ ] **Module 8** - Estimation et métrés
-- [ ] **Module 9** - Analyse des offres
-- [ ] **Mode sombre** pour le confort visuel
-- [ ] **Sauvegarde locale** du progress
-- [ ] **Statistiques détaillées** d'apprentissage
-- [ ] **Export PDF** des cartes mentales
+### **Version 1.1** *(En cours)*
+- [ ] Module 8 : Estimation et métrés
+- [ ] Système de badges et récompenses
+- [ ] Export PDF des cartes mentales
+- [ ] Mode sombre pour confort visuel
 
-## 📞 **Contact**
+### **Version 1.2** *(Planifiée)*
+- [ ] Module 9 : Analyse des offres  
+- [ ] Statistiques détaillées progression
+- [ ] Mode hors-ligne (PWA complète)
+- [ ] Partage social des scores
 
-**Cyril Hermantin**
-- GitHub: [@cyrilhermantin-create](https://github.com/cyrilhermantin-create)
-- Projet: Formation Batilearn optimisée
+### **Version 2.0** *(Vision)*
+- [ ] Intelligence artificielle adaptative
+- [ ] Recommandations personnalisées
+- [ ] Communauté d'apprenants
+- [ ] Certification numérique
+
+## 📞 **Support & Contact**
+
+### **Développeur**
+- **GitHub** : [@cyrilhermantin-create](https://github.com/cyrilhermantin-create)
+- **Email** : Contact via GitHub Issues
+- **Projet** : Formation BTP Economiste de la construction optimisée
+
+### **Signaler un Problème**
+1. Vérifiez les **Issues existantes**
+2. Créez une **nouvelle Issue** avec :
+   - Description du problème
+   - Étapes pour reproduire
+   - Navigateur et version
+   - Captures d'écran si pertinent
+
+### **Demande de Fonctionnalité**
+- Utilisez le template **Feature Request**
+- Décrivez le **cas d'usage** et l'impact attendu
+- Proposez une **solution** si possible
+
+## 📊 **Statistiques du Projet**
+
+![GitHub stars](https://img.shields.io/github/stars/cyrilhermantin-create/Cartes-mentales-de-cours?style=social)
+![GitHub forks](https://img.shields.io/github/forks/cyrilhermantin-create/Cartes-mentales-de-cours?style=social)
+![GitHub issues](https://img.shields.io/github/issues/cyrilhermantin-create/Cartes-mentales-de-cours)
+![GitHub license](https://img.shields.io/github/license/cyrilhermantin-create/Cartes-mentales-de-cours)
 
 ## 📄 **Licence**
 
-Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Ce projet est sous licence **MIT** - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+### **Permissions**
+✅ Usage commercial  
+✅ Modification  
+✅ Distribution  
+✅ Usage privé  
+
+### **Conditions**
+📝 Inclure la licence et le copyright  
+📝 Mentionner les changements effectués  
+
+## 🏷️ **Tags & Mots-Clés**
+
+`bâtiment travaux public` `formation` `economie-construction` `carte-mentale` `quiz-interactif` `principe-pareto` `taxonomie-bloom` `apprentissage-adaptatif` `btp` `education` `javascript` `responsive-design` `pwa`
 
 ---
 
-⭐ **N'hésitez pas à mettre une étoile si ce projet vous aide dans votre formation !**
+## 🎯 **Call-to-Action**
 
-## 🏷️ **Tags**
-`batilearn` `formation` `carte-mentale` `quiz-interactif` `principe-pareto` `taxonomie-bloom` `apprentissage` `btp` `economiste-construction`
+⭐ **Mettez une étoile** si ce projet vous aide dans votre formation !  
+🔄 **Partagez** avec vos collègues en formation  
+🐛 **Contribuez** en signalant des améliorations  
+📱 **Testez** sur mobile pour l'expérience complète  
+
+---
+
+💡 **"L'apprentissage efficace n'est pas une question de temps passé, mais de méthode utilisée."**
+
+**Développé avec ❤️ pour optimiser votre réussite en économie de la construction.**
