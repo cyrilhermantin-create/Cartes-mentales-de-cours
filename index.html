@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Batilearn - Cartes Mentales Interactives</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        /* Styles spécifiques à la page d'accueil */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin: -30px -30px 40px -30px;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: #4ecdc4;
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .module-icon {
+            font-size: 3em;
+            margin-right: 20px;
+            opacity: 0.8;
+        }
+
+        .module-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .module-subtitle {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .module-description {
+            color: #555;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .module-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-item::before {
+            margin-right: 5px;
+            font-size: 1.2em;
+        }
+
+        .stat-questions::before { content: "❓"; }
+        .stat-time::before { content: "⏱️"; }
+        .stat-level::before { content: "📊"; }
+
+        .module-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .module-btn:hover {
+            background: linear-gradient(135deg, #5a6fd8, #6a42a0);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .features-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 40px;
+            border-radius: 20px;
+            margin: 50px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .progress-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .progress-item:last-child {
+            border-bottom: none;
+        }
+
+        .progress-bar-small {
+            width: 150px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill-small {
+            height: 100%;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            transition: width 0.5s ease;
+        }
+
+        .coming-soon {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .coming-soon .module-btn {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #4ecdc4;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .badge.new {
+            background: #ff6b6b;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .module-stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🧠 Formation Batilearn</h1>
+            <p>Cartes mentales interactives et quiz adaptatifs pour maîtriser vos modules de formation en économie de la construction</p>
+        </div>
+
+        <div class="modules-grid">
+            <!-- Module 7-1-1 : Analyse -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">📋</div>
+                    <div>
+                        <div class="module-title">Module 7-1-1 : Analyse</div>
+                        <div class="module-subtitle">Documents nécessaires avant DCE</div>
+                    </div>
+                </div>
+                
+                <div class="module-description">
+                    Maîtrisez l'analyse des documents essentiels : permis de construire, programme, géotechnique, sécurité et qualité. Application du principe de Pareto pour identifier les 20% de documents critiques.
+                </div>
+
+                <div class="module-stats">
+                    <div class="stat-item stat-questions">6 questions</div>
+                    <div class="stat-item stat-time">25 min</div>
+                    <div class="stat-item stat-level">Tous niveaux Bloom</div>
+                </div>
+
+                <button class="module-btn" onclick="window.location.href='modules/module-7-1-1-analyse.html'">
+                    Commencer l'Analyse 📚
+                </button>
+            </div>
+
+            <!-- Module 7-1-2 : Synthèse -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">🔄</div>
+                    <div>
+                        <div class="module-title">Module 7-1-2 : Synthèse</div>
+                        <div class="module-subtitle">Synthèse générale et technique</div>
+                        <span class="badge new">NOUVEAU</span>
+                    </div>
+                </div>
+                
+                <div class="module-description">
+                    Apprenez à réaliser la synthèse d'opération : identification des acteurs, modalités financières, points à risque et organisation du contrôle. Méthode S-R-T-P optimisée.
+                </div>
+
+                <div class="module-stats">
+                    <div class="stat-item stat-questions">8 questions</div>
+                    <div class="stat-item stat-time">30 min</div>
+                    <div class="stat-item stat-level">Tous niveaux Bloom</div>
+                </div>
+
+                <button class="module-btn" onclick="window.location.href='modules/module-7-1-2-synthese.html'">
+                    Commencer la Synthèse 🔄
+                </button>
+            </div>
+
+            <!-- Modules à venir -->
+            <div class="module-card coming-soon">
+                <div class="module-header">
+                    <div class="module-icon">📊</div>
+                    <div>
+                        <div class="module-title">Module 8 : Estimation</div>
+                        <div class="module-subtitle">Métrés et chiffrage</div>
+                        <span class="badge">BIENTÔT</span>
+                    </div>
+                </div>
+                
+                <div class="module-description">
+                    Techniques d'estimation, calcul des métrés, ratio de prix et analyse comparative des offres.
+                </div>
+
+                <div class="module-stats">
+                    <div class="stat-item stat-questions">10 questions</div>
+                    <div class="stat-item stat-time">40 min</div>
+                    <div class="stat-item stat-level">Avancé</div>
+                </div>
+
+                <button class="module-btn">
+                    Prochainement disponible 🚧
+                </button>
+            </div>
+        </div>
+
+        <!-- Section Fonctionnalités -->
+        <div class="features-section">
+            <h2 style="text-align: center; color: #333; margin-bottom: 20px;">✨ Fonctionnalités Innovantes</h2>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🧠</div>
+                    <h3 style="color: #4ecdc4;">Cartes Mentales</h3>
+                    <p>Visualisation interactive des concepts avec détails dépliables</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h3 style="color: #4ecdc4;">Principe de Pareto</h3>
+                    <p>Focus sur les 20% essentiels pour 80% d'efficacité</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <h3 style="color: #4ecdc4;">Taxonomie de Bloom</h3>
+                    <p>Quiz adaptatifs sur 6 niveaux cognitifs</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3 style="color: #4ecdc4;">Apprentissage Actif</h3>
+                    <p>Feedback immédiat et recommandations personnalisées</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Progression -->
+        <div class="progress-section">
+            <h2 style="color: #333; margin-bottom: 25px;">📊 Votre Progression</h2>
+            
+            <div class="progress-item">
+                <div>
+                    <strong>Module 7-1-1 : Analyse</strong><br>
+                    <small style="color: #666;">Documents DCE</small>
+                </div>
+                <div>
+                    <div class="progress-bar-small">
+                        <div class="progress-fill-small" style="width: 0%"></div>
+                    </div>
+                    <small style="color: #666;">0% complété</small>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div>
+                    <strong>Module 7-1-2 : Synthèse</strong><br>
+                    <small style="color: #666;">Synthèse d'opération</small>
+                </div>
+                <div>
+                    <div class="progress-bar-small">
+                        <div class="progress-fill-small" style="width: 0%"></div>
+                    </div>
+                    <small style="color: #666;">0% complété</small>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div>
+                    <strong>Score Global</strong><br>
+                    <small style="color: #666;">Tous modules confondus</small>
+                </div>
+                <div>
+                    <div class="progress-bar-small">
+                        <div class="progress-fill-small" style="width: 0%"></div>
+                    </div>
+                    <small style="color: #666;">0% maîtrisé</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pied de page -->
+        <div style="text-align: center; margin-top: 50px; padding: 30px; background: rgba(102, 126, 234, 0.1); border-radius: 15px;">
+            <h3 style="color: #667eea; margin-bottom: 15px;">🎓 Formation Batilearn Optimisée</h3>
+            <p style="color: #666; line-height: 1.6;">
+                Plateforme d'apprentissage interactive basée sur les principes pédagogiques modernes.<br>
+                Développée pour maximiser votre réussite en économie de la construction.
+            </p>
+            <div style="margin-top: 20px;">
+                <a href="https://github.com/cyrilhermantin-create/Cartes-mentales-de-cours" 
+                   style="color: #667eea; text-decoration: none; font-weight: 600;">
+                    📂 Voir sur GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
