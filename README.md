@@ -1,8 +1,8 @@
-# 🧠 Cartes Mentales de Cours - Formation Batilearn
+# 🧠 Cartes Mentales de Cours - Formation BTP Economiste de la Construction
 
 ## 📖 Description
 
-Plateforme d'apprentissage interactive pour la formation **BTP** en économie de la construction. Applique le **principe de Pareto (80/20)** et la **taxonomie de Bloom révisée** pour optimiser la mémorisation et la compréhension.
+Plateforme d'apprentissage interactive pour la formation **BTP Economiste de la Construction** . Applique le **principe de Pareto (80/20)** et la **taxonomie de Bloom révisée** pour optimiser la mémorisation et la compréhension.
 
 ## 🌐 **Accès Direct**
 
