@@ -1,6 +1,6 @@
-/* ==========================================
-   STYLES CSS PRINCIPAUX - FORMATION BATILEARN
-   ========================================== */
+/* ====================================================================
+   STYLES CSS PRINCIPAUX - FORMATION BTP Economiste de la Construction
+   ==================================================================== */
 
 /* Reset et styles de base */
 * {
@@ -489,3 +489,235 @@ body {
         padding: 12px 20px;
         font-size: 0.9em;
     }
+/* Styles pour l'interactivité des branches */
+.branch {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.branch:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.branch-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+    margin-top: 10px;
+}
+
+.branch-details.show {
+    max-height: 300px;
+    opacity: 1;
+}
+
+.branch.expanded {
+    background-color: #f0f9ff;
+    border-left: 4px solid #3b82f6;
+}
+
+/* Styles pour les onglets */
+.tab-container {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 15px 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #6b7280;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: #3b82f6;
+    background-color: #f3f4f6;
+}
+
+.tab-btn.active {
+    color: #3b82f6;
+    border-bottom-color: #3b82f6;
+    background-color: #f0f9ff;
+}
+
+/* Styles pour les sections de contenu */
+.content-section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Styles pour le quiz */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #10b981;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.score {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 30px;
+}
+
+.question-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.question-text {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #1f2937;
+}
+
+.answers {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.answer-btn {
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.answer-btn:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    transform: translateX(5px);
+}
+
+.answer-btn:disabled {
+    cursor: not-allowed;
+}
+
+.answer-btn.correct {
+    background: #dcfce7;
+    border-color: #10b981;
+    color: #065f46;
+}
+
+.answer-btn.incorrect {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.feedback {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.correct-feedback {
+    background: #dcfce7;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+.incorrect-feedback {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+}
+
+.results-card {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.final-score {
+    font-size: 48px;
+    font-weight: 700;
+    color: #3b82f6;
+    margin: 20px 0;
+}
+
+.score-details {
+    text-align: left;
+    margin-top: 30px;
+}
+
+.score-item {
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.score-item.correct {
+    background: #dcfce7;
+    color: #065f46;
+}
+
+.score-item.incorrect {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 10px;
+}
+
+.btn:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
