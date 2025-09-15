@@ -3,300 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module 7 - Analyse et synthèse - Outils d'apprentissage</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 15px;
-            padding: 5px;
-        }
-
-        .tab-btn {
-            padding: 15px 30px;
-            margin: 0 5px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            color: #667eea;
-        }
-
-        .tab-btn.active {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .content-section {
-            display: none;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Carte Mentale */
-        .mindmap {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .central-node {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-            color: white;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.3);
-            transform: scale(1.1);
-        }
-
-        .branch {
-            background: white;
-            border: 3px solid #4ecdc4;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 200px;
-            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.2);
-        }
-
-        .branch:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(78, 205, 196, 0.4);
-            border-color: #26a69a;
-        }
-
-        .branch h3 {
-            color: #26a69a;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-
-        .branch-details {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(78, 205, 196, 0.1);
-            border-radius: 10px;
-            border-left: 4px solid #26a69a;
-        }
-
-        /* Quiz Styles */
-        .quiz-container {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .question {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .bloom-level {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .bloom-memorisation { background: #ffeb3b; color: #333; }
-        .bloom-comprehension { background: #ff9800; color: white; }
-        .bloom-application { background: #4caf50; color: white; }
-        .bloom-analyse { background: #2196f3; color: white; }
-        .bloom-evaluation { background: #9c27b0; color: white; }
-        .bloom-creation { background: #f44336; color: white; }
-
-        .options {
-            display: grid;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .option {
-            padding: 15px;
-            background: rgba(102, 126, 234, 0.05);
-            border: 2px solid rgba(102, 126, 234, 0.2);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .option:hover {
-            background: rgba(102, 126, 234, 0.1);
-            border-color: #667eea;
-        }
-
-        .option.selected {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .option.correct {
-            background: #4caf50;
-            color: white;
-            border-color: #4caf50;
-        }
-
-        .option.incorrect {
-            background: #f44336;
-            color: white;
-            border-color: #f44336;
-        }
-
-        .quiz-feedback {
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        .quiz-feedback.correct {
-            background: rgba(76, 175, 80, 0.1);
-            border-left: 4px solid #4caf50;
-            color: #2e7d32;
-        }
-
-        .quiz-feedback.incorrect {
-            background: rgba(244, 67, 54, 0.1);
-            border-left: 4px solid #f44336;
-            color: #c62828;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 10px 5px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: rgba(102, 126, 234, 0.2);
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 5px;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-
-        .score {
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #667eea;
-            margin: 20px 0;
-        }
-
-        /* Synthèse Pareto */
-        .pareto-section {
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
-            padding: 25px;
-            border-radius: 15px;
-            margin: 20px 0;
-            border-left: 5px solid #ff6b6b;
-        }
-
-        .key-concept {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 10px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #4ecdc4;
-        }
-
-        .importance-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            background: #ff6b6b;
-            color: white;
-            border-radius: 15px;
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>Module 7-1-1 - Analyse - Formation BTP Economiste de la Construction</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
     <div class="container">
+        <div class="back-nav">
+            <a href="../index.html" class="back-btn">
+                ← Retour à l'accueil
+            </a>
+        </div>
+
         <div class="header">
-            <h1>Module 7 - Analyse et Synthèse</h1>
+            <h1>Module 7-1-1 : Analyse</h1>
             <p>Documents nécessaires avant la rédaction du DCE</p>
         </div>
 
@@ -314,8 +33,8 @@
             
             <div class="mindmap">
                 <div class="branch" onclick="toggleDetails('permis')">
-                    <h3>📋 Permis de construire</h3>
-                    <p>Documents du maître d'œuvre</p>
+                    <h3><span class="branch-icon">📋</span>Permis de construire</h3>
+                    <p class="branch-summary">Documents du maître d'œuvre</p>
                     <div id="permis" class="branch-details">
                         <ul>
                             <li>Plans architecturaux</li>
@@ -327,8 +46,8 @@
                 </div>
 
                 <div class="branch" onclick="toggleDetails('programme')">
-                    <h3>📝 Programme</h3>
-                    <p>Document du maître d'ouvrage</p>
+                    <h3><span class="branch-icon">📝</span>Programme</h3>
+                    <p class="branch-summary">Document du maître d'ouvrage</p>
                     <div id="programme" class="branch-details">
                         <ul>
                             <li>Besoins du maître d'ouvrage</li>
@@ -342,8 +61,8 @@
                 </div>
 
                 <div class="branch" onclick="toggleDetails('geotechnique')">
-                    <h3>🏗️ Rapport géotechnique</h3>
-                    <p>Bureau d'études de sol</p>
+                    <h3><span class="branch-icon">🏗️</span>Rapport géotechnique</h3>
+                    <p class="branch-summary">Bureau d'études de sol</p>
                     <div id="geotechnique" class="branch-details">
                         <ul>
                             <li>Nature du sol</li>
@@ -354,8 +73,8 @@
                 </div>
 
                 <div class="branch" onclick="toggleDetails('techniques')">
-                    <h3>🔬 Documents techniques</h3>
-                    <p>Spécialistes</p>
+                    <h3><span class="branch-icon">🔬</span>Documents techniques</h3>
+                    <p class="branch-summary">Spécialistes</p>
                     <div id="techniques" class="branch-details">
                         <ul>
                             <li>Rapport acoustique (acousticien)</li>
@@ -366,8 +85,8 @@
                 </div>
 
                 <div class="branch" onclick="toggleDetails('securite')">
-                    <h3>🛡️ PGC-SPS</h3>
-                    <p>Coordonnateur de sécurité</p>
+                    <h3><span class="branch-icon">🛡️</span>PGC-SPS</h3>
+                    <p class="branch-summary">Coordonnateur de sécurité</p>
                     <div id="securite" class="branch-details">
                         <ul>
                             <li>Risques liés au site</li>
@@ -378,8 +97,8 @@
                 </div>
 
                 <div class="branch" onclick="toggleDetails('qualite')">
-                    <h3>✅ SDQ</h3>
-                    <p>Bureau d'études qualité</p>
+                    <h3><span class="branch-icon">✅</span>SDQ</h3>
+                    <p class="branch-summary">Bureau d'études qualité</p>
                     <div id="qualite" class="branch-details">
                         <ul>
                             <li>Schéma directeur de la qualité</li>
@@ -390,8 +109,8 @@
                 </div>
 
                 <div class="branch" onclick="toggleDetails('environnement')">
-                    <h3>🌱 Notice environnement</h3>
-                    <p>Bureau d'études environnement</p>
+                    <h3><span class="branch-icon">🌱</span>Notice environnement</h3>
+                    <p class="branch-summary">Bureau d'études environnement</p>
                     <div id="environnement" class="branch-details">
                         <ul>
                             <li>Exigences environnementales</li>
@@ -402,8 +121,8 @@
                 </div>
 
                 <div class="branch" onclick="toggleDetails('reseaux')">
-                    <h3>🔌 Demande de renseignements</h3>
-                    <p>Mairie</p>
+                    <h3><span class="branch-icon">🔌</span>Demande de renseignements</h3>
+                    <p class="branch-summary">Mairie</p>
                     <div id="reseaux" class="branch-details">
                         <ul>
                             <li>Concessionnaires des réseaux</li>
@@ -414,8 +133,8 @@
                 </div>
 
                 <div class="branch" onclick="toggleDetails('existant')">
-                    <h3>🏘️ Documents existant</h3>
-                    <p>Interventions sur bâti existant</p>
+                    <h3><span class="branch-icon">🏘️</span>Documents existant</h3>
+                    <p class="branch-summary">Interventions sur bâti existant</p>
                     <div id="existant" class="branch-details">
                         <ul>
                             <li>Relevé géomètre (topographie)</li>
@@ -481,246 +200,20 @@
                     <p><strong>Rapports techniques :</strong> Acoustique, thermique, environnement - définissent les contraintes techniques spécifiques selon le projet.</p>
                 </div>
 
-                <h3 style="color: #4ecdc4; margin-top: 30px;">💡 Mémorisation efficace :</h3>
-                <p style="background: rgba(78, 205, 196, 0.1); padding: 15px; border-radius: 10px; margin-top: 15px;">
-                    <strong>Myémonique PPGSTS :</strong><br>
-                    <strong>P</strong>ermis + <strong>P</strong>rogramme + <strong>G</strong>éotechnique + <strong>S</strong>écurité + <strong>T</strong>echnique + <strong>S</strong>pécifique<br>
-                    Ces 6 catégories représentent 80% des connaissances essentielles du module !
-                </p>
+                <div class="mnemonic-box">
+                    <h3 style="margin-bottom: 15px;">💡 Moyen Mnémotechnique</h3>
+                    <div class="mnemonic-letters">PPGSTS</div>
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        <strong>P</strong>ermis + <strong>P</strong>rogramme + <strong>G</strong>éotechnique + <strong>S</strong>écurité + <strong>T</strong>echnique + <strong>S</strong>pécifique
+                    </p>
+                    <p style="margin-top: 15px; font-size: 0.95em; opacity: 0.9;">
+                        Ces 6 catégories représentent 80% des connaissances essentielles du module !
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Questions du quiz basées sur la taxonomie de Bloom
-        const questions = [
-            {
-                level: "memorisation",
-                question: "Qui établit le rapport géotechnique ?",
-                options: [
-                    "Le maître d'œuvre",
-                    "Le bureau d'études de sol (géotechnicien)",
-                    "Le maître d'ouvrage",
-                    "Le coordonnateur de sécurité"
-                ],
-                correct: 1,
-                feedback: "Le rapport géotechnique est établi par un bureau d'études de sol ou un géotechnicien pour déterminer la nature du sol."
-            },
-            {
-                level: "comprehension",
-                question: "Pourquoi le programme du maître d'ouvrage est-il obligatoire dans un marché public ?",
-                options: [
-                    "Pour respecter la réglementation des marchés publics",
-                    "Pour définir les besoins, spécifications et contraintes du projet",
-                    "Pour assurer un financement adéquat",
-                    "Toutes les réponses ci-dessus"
-                ],
-                correct: 3,
-                feedback: "Le programme est obligatoire car il centralise tous les éléments essentiels : besoins, spécifications, contraintes, réglementations et financement."
-            },
-            {
-                level: "application",
-                question: "Dans quel cas l'économiste doit-il consulter les diagnostics techniques d'amiante et de plomb ?",
-                options: [
-                    "Pour tout nouveau bâtiment",
-                    "Uniquement pour les bâtiments de plus de 50 ans",
-                    "Lors d'interventions sur des bâtiments existants",
-                    "Seulement si le maître d'ouvrage le demande"
-                ],
-                correct: 2,
-                feedback: "Les diagnostics techniques (amiante, plomb, termite, radon) sont nécessaires lors d'interventions sur des bâtiments existants pour connaître leur état."
-            },
-            {
-                level: "analyse",
-                question: "Analysez l'impact d'un sol argileux instable sur la rédaction du DCE :",
-                options: [
-                    "Aucun impact, c'est du ressort de l'entreprise",
-                    "Nécessité de prévoir des fondations spéciales et d'informer les entreprises",
-                    "Simple mention dans les documents techniques",
-                    "Report de la consultation"
-                ],
-                correct: 1,
-                feedback: "Un sol instable impose des contraintes techniques importantes qui doivent être anticipées dans le DCE pour que les entreprises puissent chiffrer correctement."
-            },
-            {
-                level: "evaluation",
-                question: "Évaluez l'ordre de priorité pour l'économiste : quel document consulter EN PREMIER ?",
-                options: [
-                    "Le rapport géotechnique pour connaître les contraintes",
-                    "Le programme du maître d'ouvrage pour comprendre les objectifs",
-                    "Le permis de construire pour avoir la vision globale",
-                    "Le PGC-SPS pour la sécurité"
-                ],
-                correct: 1,
-                feedback: "Le programme définit les objectifs et le cadre général du projet. Il oriente toute l'analyse et doit être consulté en premier."
-            },
-            {
-                level: "creation",
-                question: "Vous devez créer une checklist pour un projet de rénovation d'école. Quels documents sont INDISPENSABLES ?",
-                options: [
-                    "Permis + Programme + Géotechnique uniquement",
-                    "Tous les documents mentionnés dans le cours",
-                    "Permis + Programme + Diagnostics existant + Sécurité + Accessibilité",
-                    "Programme + Géotechnique + Environnement"
-                ],
-                correct: 2,
-                feedback: "Pour une école (ERP), tous ces documents sont critiques : réglementation stricte, sécurité renforcée, accessibilité obligatoire, état de l'existant crucial."
-            }
-        ];
-
-        let currentQuestion = 0;
-        let score = 0;
-        let quizStarted = false;
-
-        function showSection(section) {
-            // Masquer toutes les sections
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            
-            // Afficher la section sélectionnée
-            document.getElementById(section).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function toggleDetails(id) {
-            const details = document.getElementById(id);
-            if (details.style.display === 'none' || details.style.display === '') {
-                details.style.display = 'block';
-            } else {
-                details.style.display = 'none';
-            }
-        }
-
-        function startQuiz() {
-            quizStarted = true;
-            currentQuestion = 0;
-            score = 0;
-            document.getElementById('startQuiz').style.display = 'none';
-            document.getElementById('restartQuiz').style.display = 'none';
-            showQuestion();
-        }
-
-        function showQuestion() {
-            if (currentQuestion >= questions.length) {
-                showResults();
-                return;
-            }
-
-            const question = questions[currentQuestion];
-            const container = document.getElementById('quizContainer');
-            
-            const bloomLabels = {
-                'memorisation': 'Mémorisation',
-                'comprehension': 'Compréhension', 
-                'application': 'Application',
-                'analyse': 'Analyse',
-                'evaluation': 'Évaluation',
-                'creation': 'Création'
-            };
-
-            container.innerHTML = `
-                <div class="quiz-container">
-                    <div class="bloom-level bloom-${question.level}">
-                        Niveau Bloom: ${bloomLabels[question.level]}
-                    </div>
-                    <div class="question">${question.question}</div>
-                    <div class="options">
-                        ${question.options.map((option, index) => `
-                            <div class="option" onclick="selectOption(${index})">${option}</div>
-                        `).join('')}
-                    </div>
-                    <div class="quiz-feedback" id="feedback"></div>
-                </div>
-            `;
-
-            updateProgress();
-            updateScore();
-        }
-
-        function selectOption(selectedIndex) {
-            const question = questions[currentQuestion];
-            const options = document.querySelectorAll('.option');
-            const feedback = document.getElementById('feedback');
-            
-            // Désactiver tous les clics
-            options.forEach((option, index) => {
-                option.onclick = null;
-                if (index === question.correct) {
-                    option.classList.add('correct');
-                } else if (index === selectedIndex) {
-                    option.classList.add('incorrect');
-                }
-            });
-
-            // Afficher le feedback
-            if (selectedIndex === question.correct) {
-                score++;
-                feedback.className = 'quiz-feedback correct';
-                feedback.innerHTML = '✅ ' + question.feedback;
-            } else {
-                feedback.className = 'quiz-feedback incorrect';
-                feedback.innerHTML = '❌ ' + question.feedback;
-            }
-            feedback.style.display = 'block';
-
-            // Afficher le bouton suivant
-            document.getElementById('nextQuestion').style.display = 'inline-block';
-            updateScore();
-        }
-
-        function nextQuestion() {
-            currentQuestion++;
-            document.getElementById('nextQuestion').style.display = 'none';
-            showQuestion();
-        }
-
-        function showResults() {
-            const container = document.getElementById('quizContainer');
-            const percentage = Math.round((score / questions.length) * 100);
-            
-            let resultMessage = '';
-            let resultClass = '';
-            
-            if (percentage >= 80) {
-                resultMessage = 'Excellent ! Vous maîtrisez parfaitement le module.';
-                resultClass = 'correct';
-            } else if (percentage >= 60) {
-                resultMessage = 'Bon travail ! Quelques révisions sur les points faibles.';
-                resultClass = 'correct';
-            } else {
-                resultMessage = 'Il faut revoir le cours. Utilisez la carte mentale !';
-                resultClass = 'incorrect';
-            }
-
-            container.innerHTML = `
-                <div class="quiz-container">
-                    <h2 style="text-align: center; color: #667eea;">🎯 Résultats du Quiz</h2>
-                    <div class="score" style="font-size: 2em;">${score}/${questions.length} (${percentage}%)</div>
-                    <div class="quiz-feedback ${resultClass}" style="display: block; text-align: center;">
-                        ${resultMessage}
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('restartQuiz').style.display = 'inline-block';
-        }
-
-        function restartQuiz() {
-            document.getElementById('restartQuiz').style.display = 'none';
-            document.getElementById('startQuiz').style.display = 'inline-block';
-            document.getElementById('quizContainer').innerHTML = '';
-            document.getElementById('progressBar').style.width = '0%';
-            document.getElementById('scoreDisplay').textContent = 'Score: 0/0';
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
-
-        function updateScore() {
-            document.getElementById('scoreDisplay').textContent = `Score: ${score}/${currentQuestion + (quizStarted ? 1 : 0)}`;
-        }
-    </script>
+    <script src="../assets/js/module-7-1-1.js"></script>
 </body>
 </html>
