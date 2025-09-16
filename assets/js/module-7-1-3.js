@@ -1,3 +1,11 @@
+
+// ==========================================
+// JAVASCRIPT POUR MODULE 7-1-3 : Rédaction DCE
+// ==========================================
+
+// Questions du quiz basées sur la taxonomie de Bloom
+const questions = [
+
 function showSection(sectionId) {
   document.querySelectorAll('.content-section').forEach(section => {
     section.classList.remove('active');
