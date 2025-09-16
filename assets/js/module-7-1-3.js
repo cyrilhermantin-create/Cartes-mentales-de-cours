@@ -48,6 +48,7 @@ Chaque question cible un document stratégique du DCE (Pareto 20%) et un niveau 
     "type":"singleSelect"
   }
 ],"title":"Quiz Rédaction du DCE – Module 7-1-3","type":"quiz"}</AnswerCard>
+
 let currentQuestion = 0;
 let score = 0;
 let quizStarted = false;
