@@ -600,3 +600,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('✅ Carte mentale interactive prête !');
 });
+function showSection(sectionId) {
+  // Masquer toutes les sections
+  document.querySelectorAll('.content-section').forEach(section => {
+    section.classList.remove('active');
+  });
+
+  // Retirer l'état actif des boutons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  // Afficher la section sélectionnée
+  document.getElementById(sectionId).classList.add('active');
+
+  // Activer le bouton correspondant
+  document.querySelector(`.tab-btn[onclick="showSection('${sectionId}')"]`).classList.add('active');
+}
