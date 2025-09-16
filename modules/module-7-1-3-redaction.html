@@ -1,0 +1,71 @@
+<div class="tab-container">
+  <button class="tab-btn active" onclick="showSection('mindmap')">Carte Mentale</button>
+  <button class="tab-btn" onclick="showSection('quiz')">Quiz Interactif</button>
+  <button class="tab-btn" onclick="showSection('pareto')">Synthèse Pareto</button>
+</div>
+
+<div id="mindmap" class="content-section active">
+  <div class="central-node">🧠 Rédaction du DCE</div>
+  <div class="mindmap">
+    <div class="branch" onclick="toggleDetails('engagement')">
+      <h3>📄 Acte d’engagement</h3>
+      <div id="engagement" class="branch-details">
+        <ul>
+          <li>Parties contractantes</li>
+          <li>Prix et délais</li>
+          <li>Forme du marché</li>
+        </ul>
+      </div>
+    </div>
+    <div class="branch" onclick="toggleDetails('ccap')">
+      <h3>📑 CCAP</h3>
+      <div id="ccap" class="branch-details">
+        <ul>
+          <li>Communication entre parties</li>
+          <li>Clauses financières</li>
+          <li>Préparation de chantier</li>
+        </ul>
+      </div>
+    </div>
+    <div class="branch" onclick="toggleDetails('consultation')">
+      <h3>📋 Règlement de consultation</h3>
+      <div id="consultation" class="branch-details">
+        <ul>
+          <li>Procédure de passation</li>
+          <li>Lots, variantes, délais</li>
+          <li>Documents à produire</li>
+        </ul>
+      </div>
+    </div>
+    <div class="branch" onclick="toggleDetails('finance')">
+      <h3>🧾 Clauses financières</h3>
+      <div id="finance" class="branch-details">
+        <ul>
+          <li>Modalités de paiement</li>
+          <li>Révision des prix</li>
+          <li>Pénalités et primes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="branch" onclick="toggleDetails('juridique')">
+      <h3>🛡️ Clauses juridiques</h3>
+      <div id="juridique" class="branch-details">
+        <ul>
+          <li>Assurances obligatoires</li>
+          <li>Responsabilités</li>
+          <li>Règlement des litiges</li>
+        </ul>
+      </div>
+    </div>
+    <div class="branch" onclick="toggleDetails('qse')">
+      <h3>🧪 Qualité / Sécurité / Environnement</h3>
+      <div id="qse" class="branch-details">
+        <ul>
+          <li>Contrôle de conformité</li>
+          <li>Procédures environnementales</li>
+          <li>Insertion sociale</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
