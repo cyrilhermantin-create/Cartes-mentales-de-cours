@@ -77,6 +77,9 @@ function toggleDetails(id) {
     el.style.display = el.style.display === 'block' ? 'none' : 'block';
   }
 }
+// ==========================================
+// FONCTIONS DU QUIZ
+// ==========================================
 
 <div class="quiz-container">
   <div class="quiz-question">Quel document formalise le contrat entre les parties ?</div>
