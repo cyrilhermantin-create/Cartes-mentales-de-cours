@@ -90,6 +90,158 @@ function toggleDetails(id) {
     <button class="button" onclick="checkAnswer(3)">Le CCAP</button>
   </div>
   <div class="quiz-feedback"></div>
+  function startQuiz() {
+    quizStarted = true;
+    currentQuestion = 0;
+    score = 0;
+    document.getElementById('startQuiz').style.display = 'none';
+    document.getElementById('restartQuiz').style.display = 'none';
+    showQuestion();
+}
+
+function showQuestion() {
+    if (currentQuestion >= questions.length) {
+        showResults();
+        return;
+    }
+
+    const question = questions[currentQuestion];
+    const container = document.getElementById('quizContainer');
+    
+    const bloomLabels = {
+        'memorisation': 'Mémorisation',
+        'comprehension': 'Compréhension', 
+        'application': 'Application',
+        'analyse': 'Analyse',
+        'evaluation': 'Évaluation',
+        'creation': 'Création'
+    };
+
+    container.innerHTML = `
+        <div class="quiz-container">
+            <div class="bloom-level bloom-${question.level}">
+                Niveau Bloom: ${bloomLabels[question.level]}
+            </div>
+            <div class="question">${question.question}</div>
+            <div class="options">
+                ${question.options.map((option, index) => `
+                    <div class="option" onclick="selectOption(${index})">${option}</div>
+                `).join('')}
+            </div>
+            <div class="quiz-feedback" id="feedback"></div>
+        </div>
+    `;
+
+    updateProgress();
+    updateScore();
+}
+
+function selectOption(selectedIndex) {
+    const question = questions[currentQuestion];
+    const options = document.querySelectorAll('.option');
+    const feedback = document.getElementById('feedback');
+    
+    // Désactiver tous les clics
+    options.forEach((option, index) => {
+        option.onclick = null;
+        if (index === question.correct) {
+            option.classList.add('correct');
+        } else if (index === selectedIndex) {
+            option.classList.add('incorrect');
+        }
+    });
+
+    // Afficher le feedback
+    if (selectedIndex === question.correct) {
+        score++;
+        feedback.className = 'quiz-feedback correct';
+        feedback.innerHTML = '✅ ' + question.feedback;
+    } else {
+        feedback.className = 'quiz-feedback incorrect';
+        feedback.innerHTML = '❌ ' + question.feedback;
+    }
+    feedback.style.display = 'block';
+
+    // Afficher le bouton suivant
+    document.getElementById('nextQuestion').style.display = 'inline-block';
+    updateScore();
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    document.getElementById('nextQuestion').style.display = 'none';
+    showQuestion();
+}
+
+function showResults() {
+    const container = document.getElementById('quizContainer');
+    const percentage = Math.round((score / questions.length) * 100);
+    
+    let resultMessage = '';
+    let resultClass = '';
+    let recommendations = '';
+    
+    if (percentage >= 85) {
+        resultMessage = 'Excellence ! Vous maîtrisez parfaitement la synthèse.';
+        resultClass = 'correct';
+        recommendations = 'Vous êtes prêt pour la mise en pratique professionnelle.';
+    } else if (percentage >= 70) {
+        resultMessage = 'Très bien ! Bonne maîtrise globale du module.';
+        resultClass = 'correct';
+        recommendations = 'Revoyez les questions ratées avec la carte mentale.';
+    } else if (percentage >= 50) {
+        resultMessage = 'Correct, mais des améliorations sont nécessaires.';
+        resultClass = 'incorrect';
+        recommendations = 'Focalisez-vous sur la synthèse Pareto (S-R-T-P) et recommencez.';
+    } else {
+        resultMessage = 'Révision indispensable. Reprenez le cours complet.';
+        resultClass = 'incorrect';
+        recommendations = 'Commencez par mémoriser les 4 piliers S-R-T-P, puis utilisez la carte mentale.';
+    }
+
+    container.innerHTML = `
+        <div class="quiz-container">
+            <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">🎯 Résultats du Quiz</h2>
+            <div class="score" style="font-size: 2.5em; margin: 20px 0;">${score}/${questions.length} (${percentage}%)</div>
+            <div class="quiz-feedback ${resultClass}" style="display: block; text-align: center; font-size: 1.1em;">
+                <strong>${resultMessage}</strong>
+            </div>
+            <div style="margin-top: 25px; padding: 20px; background: rgba(102, 126, 234, 0.1); border-radius: 12px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">📚 Recommandations :</h3>
+                <p style="line-height: 1.6;">${recommendations}</p>
+            </div>
+            <div style="margin-top: 20px; text-align: center;">
+                <p style="color: #666; font-style: italic;">
+                    💡 Conseil : Un score ≥ 80% indique une maîtrise opérationnelle du module.
+                </p>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('restartQuiz').style.display = 'inline-block';
+    
+    // Sauvegarder le score pour la progression
+    saveProgress('module-7-1-2', percentage);
+}
+
+function restartQuiz() {
+    document.getElementById('restartQuiz').style.display = 'none';
+    document.getElementById('startQuiz').style.display = 'inline-block';
+    document.getElementById('quizContainer').innerHTML = '';
+    document.getElementById('progressBar').style.width = '0%';
+    document.getElementById('scoreDisplay').textContent = 'Score: 0/0';
+    quizStarted = false;
+}
+
+function updateProgress() {
+    const progress = ((currentQuestion + 1) / questions.length) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+}
+
+function updateScore() {
+    document.getElementById('scoreDisplay').textContent = `Score: ${score}/${currentQuestion + (quizStarted ? 1 : 0)}`;
+}
+
 </div>
 document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll(".tab-btn");
