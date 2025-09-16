@@ -110,14 +110,15 @@ let quizStarted = false;
 // FONCTIONS DE NAVIGATION
 // ==========================================
 
-function showSection(section) {
+
+function showSection(section, event) {
     // Masquer toutes les sections
     document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    
+
     // Afficher la section sélectionnée
     document.getElementById(section).classList.add('active');
-    event.target.classList.add('active');
+    if (event) event.target.classList.add('active');
 }
 
 function toggleDetails(id) {
