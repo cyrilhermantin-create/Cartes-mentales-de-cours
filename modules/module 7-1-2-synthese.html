@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 7 - Synthèse - Outils d'apprentissage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            padding: 5px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            margin: 5px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #667eea;
+            font-size: 0.9em;
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Carte Mentale */
+        .mindmap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .central-node {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.3);
+        }
+
+        .branch {
+            background: white;
+            border: 3px solid #4ecdc4;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.2);
+            position: relative;
+        }
+
+        .branch:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(78, 205, 196, 0.4);
+            border-color: #26a69a;
+        }
+
+        .branch h3 {
+            color: #26a69a;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+        }
+
+        .branch-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .branch-summary {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .branch-details {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(78, 205, 196, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #26a69a;
+        }
+
+        .branch-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .branch-details li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(78, 205, 196, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .branch-details li:before {
+            content: "▶";
+            color: #26a69a;
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+
+        .priority-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        /* Quiz Styles */
+        .quiz-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .bloom-level {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .bloom-memorisation { background: #ffeb3b; color: #333; }
+        .bloom-comprehension { background: #ff9800; color: white; }
+        .bloom-application { background: #4caf50; color: white; }
+        .bloom-analyse { background: #2196f3; color: white; }
+        .bloom-evaluation { background: #9c27b0; color: white; }
+        .bloom-creation { background: #f44336; color: white; }
+
+        .options {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            padding: 18px;
+            background: rgba(102, 126, 234, 0.05);
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1.5;
+        }
+
+        .option:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .option.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .quiz-feedback {
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+            line-height: 1.6;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            color: #2e7d32;
+        }
+
+        .quiz-feedback.incorrect {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            color: #c62828;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 6px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 25px 0;
+        }
+
+        /* Synthèse Pareto */
+        .pareto-section {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .key-concept {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 15px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .importance-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .concept-details {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            align-items: start;
+            margin-top: 15px;
+        }
+
+        .concept-icon {
+            font-size: 3em;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .mnemonic-box {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .mnemonic-letters {
+            font-size: 2.5em;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 0.8em;
+            }
+            
+            .concept-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Module 7 - Synthèse (EC 7-1-2)</h1>
+            <p>Synthèse générale et technique de l'opération</p>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="showSection('mindmap')">Carte Mentale</button>
+            <button class="tab-btn" onclick="showSection('quiz')">Quiz Interactif</button>
+            <button class="tab-btn" onclick="showSection('pareto')">Synthèse Pareto</button>
+        </div>
+
+        <!-- Carte Mentale -->
+        <div id="mindmap" class="content-section active">
+            <div class="central-node">
+                Synthèse de l'opération<br>
+                <small style="font-weight: normal; font-size: 0.8em;">Réunir les éléments d'analyse par centres d'intérêt</small>
+            </div>
+            
+            <div class="mindmap">
+                <div class="branch" onclick="toggleDetails('synthese-generale')">
+                    <div class="priority-badge">1</div>
+                    <h3><span class="branch-icon">📋</span>Synthèse Générale</h3>
+                    <p class="branch-summary">Identification, nature du marché, mode d'intervention</p>
+                    <div id="synthese-generale" class="branch-details">
+                        <ul>
+                            <li>Identification maître d'ouvrage et chantier</li>
+                            <li>Nature du marché (public/privé)</li>
+                            <li>Réglementation spécifique applicable</li>
+                            <li>Mode de désignation des entreprises</li>
+                            <li>Intervention (lots séparés/co-traitance/entreprise générale)</li>
+                            <li>Dimensions des installations de chantier</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('travaux-allotissement')">
+                    <div class="priority-badge">2</div>
+                    <h3><span class="branch-icon">🏗️</span>Travaux & Allotissement</h3>
+                    <p class="branch-summary">Organisation et division des travaux</p>
+                    <div id="travaux-allotissement" class="branch-details">
+                        <ul>
+                            <li>Allotissement (division en lots)</li>
+                            <li>Nombre de lots bâtiments et VRD</li>
+                            <li>Liste et montants par annexe</li>
+                            <li>Macro-lots (regroupement de corps d'état)</li>
+                            <li>Mode d'intervention si pas d'allotissement</li>
+                            <li>Coordination des travaux</li>
+                            <li>Critères mémoire technique</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('reglements')">
+                    <div class="priority-badge">3</div>
+                    <h3><span class="branch-icon">💰</span>Règlements</h3>
+                    <p class="branch-summary">Modalités financières et contractuelles</p>
+                    <div id="reglements" class="branch-details">
+                        <ul>
+                            <li>Mois de référence</li>
+                            <li>Marché à forfait vs prix unitaire</li>
+                            <li>Révision (obligatoire >3 mois) et formule</li>
+                            <li>Actualisation</li>
+                            <li>Comptes prorata</li>
+                            <li>Situations et délais (30 jours)</li>
+                            <li>Retenue de garantie (max 5%)</li>
+                            <li>Régime des avances</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('synthese-technique')">
+                    <div class="priority-badge">4</div>
+                    <h3><span class="branch-icon">🔧</span>Synthèse Technique</h3>
+                    <p class="branch-summary">Réunions pluridisciplinaires et validation</p>
+                    <div id="synthese-technique" class="branch-details">
+                        <ul>
+                            <li>Participants : MOE, MOA, Bureau contrôle, entreprises</li>
+                            <li>Validation par tous les intervenants</li>
+                            <li>Planification des réunions</li>
+                            <li>Relecture des CCTP par lot</li>
+                            <li>Sensibilisation aux interfaces</li>
+                            <li>Identification des points à risque</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('fiches-prestations')">
+                    <h3><span class="branch-icon">📄</span>Fiches de Prestations</h3>
+                    <p class="branch-summary">Synthèse par lot des prestations principales</p>
+                    <div id="fiches-prestations" class="branch-details">
+                        <ul>
+                            <li>Gros œuvre, charpente, couverture, zingerie</li>
+                            <li>Caractéristiques techniques par lot</li>
+                            <li>Études réalisées et responsables</li>
+                            <li>Matériaux spécifiés</li>
+                            <li>Consistance des travaux</li>
+                            <li>Détection d'oublis et redondances</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('points-risque')">
+                    <h3><span class="branch-icon">⚠️</span>Points à Risque</h3>
+                    <p class="branch-summary">Identification et traitement préventif</p>
+                    <div id="points-risque" class="branch-details">
+                        <ul>
+                            <li>Spécificité technique du projet</li>
+                            <li>Problèmes habituels des entreprises</li>
+                            <li>Interfaces techniques critiques</li>
+                            <li>Liste des points à risque</li>
+                            <li>Communication au bureau de contrôle</li>
+                            <li>Plans de synthèse</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('prevention-controle')">
+                    <h3><span class="branch-icon">🛡️</span>Prévention & Contrôle</h3>
+                    <p class="branch-summary">Organisation et modalités de contrôle</p>
+                    <div id="prevention-controle" class="branch-details">
+                        <ul>
+                            <li>Responsable prévention contrôle</li>
+                            <li>Réunions d'analyse des limites</li>
+                            <li>Validation des PV par bureau contrôle</li>
+                            <li>Fiches modèles de traitement</li>
+                            <li>Points de contrôle et d'arrêt</li>
+                            <li>Planning d'exécution intégré</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('documents-resultants')">
+                    <h3><span class="branch-icon">📋</span>Documents Résultants</h3>
+                    <p class="branch-summary">Livrables de la synthèse</p>
+                    <div id="documents-resultants" class="branch-details">
+                        <ul>
+                            <li>Planning avec points critiques</li>
+                            <li>Liste récapitulative des contrôles</li>
+                            <li>Fiches de traitement des points à risque</li>
+                            <li>Tableau des points de contrôle/d'arrêt</li>
+                            <li>Planning des visites de contrôle</li>
+                            <li>Procès-verbaux de réunions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Interactif -->
+        <div id="quiz" class="content-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div class="score" id="scoreDisplay">Score: 0/0</div>
+            
+            <div id="quizContainer">
+                <!-- Les questions seront générées par JavaScript -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn" id="startQuiz" onclick="startQuiz()">Commencer le Quiz</button>
+                <button class="btn" id="nextQuestion" onclick="nextQuestion()" style="display: none;">Question Suivante</button>
+                <button class="btn" id="restartQuiz" onclick="restartQuiz()" style="display: none;">Recommencer</button>
+            </div>
+        </div>
+
+        <!-- Synthèse Pareto -->
+        <div id="pareto" class="content-section">
+            <div class="pareto-section">
+                <h2 style="color: #ff6b6b; margin-bottom: 25px;">🎯 Principe de Pareto - 20% Essentiel = 80% des Connaissances</h2>
+                
+                <div class="key-concept">
+                    <div class="importance-badge">CRITIQUE - 30%</div>
+                    <h3>1. Synthèse Générale de l'Opération</h3>
+                    <div class="concept-details">
+                        <div class="concept-icon">📋</div>
+                        <div>
+                            <p><strong>Base fondamentale :</strong> Identification des acteurs, nature du marché, mode d'intervention. Ces informations orientent toute la suite de l'opération et déterminent les procédures applicables.</p>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>Maître d'ouvrage et identification chantier</li>
+                                <li>Marché public vs privé (réglementation différente)</li>
+                                <li>Mode d'intervention (lots séparés/groupement/entreprise générale)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-concept">
+                    <div class="importance-badge">CRITIQUE - 25%</div>
+                    <h3>2. Modalités de Règlement</h3>
+                    <div class="concept-details">
+                        <div class="concept-icon">💰</div>
+                        <div>
+                            <p><strong>Impact financier majeur :</strong> Détermine les conditions de paiement, révision, et garanties. Erreurs = litiges coûteux et retards de paiement.</p>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>Marché >3 mois = révision obligatoire</li>
+                                <li>Délai règlement = 30 jours (public et privé)</li>
+                                <li>Retenue de garantie max 5%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-concept">
+                    <div class="importance-badge">ESSENTIEL - 20%</div>
+                    <h3>3. Synthèse Technique & Points à Risque</h3>
+                    <div class="concept-details">
+                        <div class="concept-icon">⚠️</div>
+                        <div>
+                            <p><strong>Prévention des dysfonctionnements :</strong> Identification anticipée des interfaces critiques et points de vigilance spécifiques au projet et aux entreprises.</p>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>Réunions pluridisciplinaires obligatoires</li>
+                                <li>Analyse des interfaces techniques</li>
+                                <li>Fiches de traitement des risques</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-concept">
+                    <div class="importance-badge">IMPORTANT - 15%</div>
+                    <h3>4. Organisation Prévention & Contrôle</h3>
+                    <div class="concept-details">
+                        <div class="concept-icon">🛡️</div>
+                        <div>
+                            <p><strong>Qualité et conformité :</strong> Mise en place du système de contrôle avec points d'arrêt, autocontrôles, et planning intégré.</p>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>Points de contrôle dans planning</li>
+                                <li>Validation bureau de contrôle</li>
+                                <li>Fiches modèles de traitement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-concept">
+                    <div class="importance-badge">COMPLÉMENTAIRE - 10%</div>
+                    <h3>5. Documents et Allotissement</h3>
+                    <div class="concept-details">
+                        <div class="concept-icon">📄</div>
+                        <div>
+                            <p><strong>Organisation opérationnelle :</strong> Structuration des lots, fiches de prestations, et documents de suivi pour la phase d'exécution.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mnemonic-box">
+                    <h3 style="margin-bottom: 15px;">💡 Moyen Mnémotechnique</h3>
+                    <div class="mnemonic-letters">S-R-T-P</div>
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        <strong>S</strong>ynthèse générale<br>
+                        <strong>R</strong>èglements financiers<br>
+                        <strong>T</strong>echnique & risques<br>
+                        <strong>P</strong>révention & contrôle
+                    </p>
+                    <p style="margin-top: 15px; font-size: 0.95em; opacity: 0.9;">
+                        Ces 4 piliers représentent 90% des connaissances essentielles !
+                    </p>
+                </div>
+
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 12px; margin-top: 25px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎯 Stratégie d'apprentissage optimale :</h3>
+                    <ol style="padding-left: 20px; line-height: 1.8;">
+                        <li><strong>Maîtriser S-R-T-P</strong> = 90% de réussite assurée</li>
+                        <li><strong>Synthèse générale</strong> = comprendre le cadre global</li>
+                        <li><strong>Règlements</strong> = mémoriser les chiffres clés (30j, 5%, 3 mois)</li>
+                        <li><strong>Technique</strong> = focus sur les interfaces et risques</li>
+                        <li><strong>Prévention</strong> = retenir l'organisation et validation</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Questions du quiz basées sur la taxonomie de Bloom
+        const questions = [
+            {
+                level: "memorisation",
+                question: "Au-delà de quelle durée un marché est-il obligatoirement révisable ?",
+                options: [
+                    "1 mois",
+                    "3 mois", 
+                    "6 mois",
+                    "12 mois"
+                ],
+                correct: 1,
+                feedback: "Un marché de plus de 3 mois est obligatoirement révisable pour tenir compte de l'influence du temps sur les prix."
+            },
+            {
+                level: "memorisation",
+                question: "Quel est le pourcentage maximum de la retenue de garantie ?",
+                options: [
+                    "3%",
+                    "5%",
+                    "7%",
+                    "10%"
+                ],
+                correct: 1,
+                feedback: "La retenue de garantie ne peut pas excéder 5% du montant du marché."
+            },
+            {
+                level: "comprehension", 
+                question: "Pourquoi organise-t-on une synthèse technique avec tous les intervenants ?",
+                options: [
+                    "Pour respecter la réglementation",
+                    "Pour détecter les oublis, imprécisions et redondances",
+                    "Pour valider les prix des entreprises", 
+                    "Pour établir le planning des travaux"
+                ],
+                correct: 1,
+                feedback: "La synthèse technique permet de détecter les oublis, imprécisions et redondances dans les marchés, et d'améliorer la connaissance du champ d'intervention de chacun."
+            },
+            {
+                level: "application",
+                question: "Dans un projet de construction d'école, quels participants DOIVENT être présents aux réunions de synthèse technique ?",
+                options: [
+                    "Seulement le maître d'œuvre et les entreprises",
+                    "MOE, MOA, Bureau de contrôle, entreprises, bureau d'études",
+                    "Uniquement le responsable prévention et les entrepr
