@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 7-1-1 - Analyse - Formation BTP Economiste de la construction/title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="back-nav">
+            <a href="../index.html" class="back-btn">
+                ← Retour à l'accueil
+            </a>
+        </div>
+
+        <div class="header">
+            <h1>Module 7-1-1 : Analyse</h1>
+            <p>Documents nécessaires avant la rédaction du DCE</p>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="showSection('mindmap')">Carte Mentale</button>
+            <button class="tab-btn" onclick="showSection('quiz')">Quiz Interactif</button>
+            <button class="tab-btn" onclick="showSection('pareto')">Synthèse Pareto</button>
+        </div>
+
+        <!-- Carte Mentale -->
+        <div id="mindmap" class="content-section active">
+            <div class="central-node">
+                Documents pour l'analyse<br>avant rédaction du DCE
+            </div>
+            
+            <div class="mindmap">
+                <div class="branch" onclick="toggleDetails('permis')">
+                    <h3><span class="branch-icon">📋</span>Permis de construire</h3>
+                    <p class="branch-summary">Documents du maître d'œuvre</p>
+                    <div id="permis" class="branch-details">
+                        <ul>
+                            <li>Plans architecturaux</li>
+                            <li>Notices d'accessibilité handicapés</li>
+                            <li>Notices d'insertion environnement</li>
+                            <li>Compréhension complète de l'ouvrage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('programme')">
+                    <h3><span class="branch-icon">📝</span>Programme</h3>
+                    <p class="branch-summary">Document du maître d'ouvrage</p>
+                    <div id="programme" class="branch-details">
+                        <ul>
+                            <li>Besoins du maître d'ouvrage</li>
+                            <li>Nature et spécifications de l'ouvrage</li>
+                            <li>Réglementations applicables</li>
+                            <li>Contraintes (environnementales, urbanisme)</li>
+                            <li>Exigences spécifiques</li>
+                            <li>Financement validé</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('geotechnique')">
+                    <h3><span class="branch-icon">🏗️</span>Rapport géotechnique</h3>
+                    <p class="branch-summary">Bureau d'études de sol</p>
+                    <div id="geotechnique" class="branch-details">
+                        <ul>
+                            <li>Nature du sol</li>
+                            <li>Contraintes géotechniques</li>
+                            <li>Impact sur la construction</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('techniques')">
+                    <h3><span class="branch-icon">🔬</span>Documents techniques</h3>
+                    <p class="branch-summary">Spécialistes</p>
+                    <div id="techniques" class="branch-details">
+                        <ul>
+                            <li>Rapport acoustique (acousticien)</li>
+                            <li>Rapport thermique (thermicien)</li>
+                            <li>Directives spécialisées</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('securite')">
+                    <h3><span class="branch-icon">🛡️</span>PGC-SPS</h3>
+                    <p class="branch-summary">Coordonnateur de sécurité</p>
+                    <div id="securite" class="branch-details">
+                        <ul>
+                            <li>Risques liés au site</li>
+                            <li>Contraintes de sécurité</li>
+                            <li>Répercussion vers les entreprises</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('qualite')">
+                    <h3><span class="branch-icon">✅</span>SDQ</h3>
+                    <p class="branch-summary">Bureau d'études qualité</p>
+                    <div id="qualite" class="branch-details">
+                        <ul>
+                            <li>Schéma directeur de la qualité</li>
+                            <li>Exigences qualité</li>
+                            <li>Pièces à produire pour les offres</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('environnement')">
+                    <h3><span class="branch-icon">🌱</span>Notice environnement</h3>
+                    <p class="branch-summary">Bureau d'études environnement</p>
+                    <div id="environnement" class="branch-details">
+                        <ul>
+                            <li>Exigences environnementales</li>
+                            <li>Respect de l'environnement</li>
+                            <li>Documentation requise</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('reseaux')">
+                    <h3><span class="branch-icon">🔌</span>Demande de renseignements</h3>
+                    <p class="branch-summary">Mairie</p>
+                    <div id="reseaux" class="branch-details">
+                        <ul>
+                            <li>Concessionnaires des réseaux</li>
+                            <li>Contraintes de site</li>
+                            <li>Réseaux existants</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="branch" onclick="toggleDetails('existant')">
+                    <h3><span class="branch-icon">🏘️</span>Documents existant</h3>
+                    <p class="branch-summary">Interventions sur bâti existant</p>
+                    <div id="existant" class="branch-details">
+                        <ul>
+                            <li>Relevé géomètre (topographie)</li>
+                            <li>Diagnostics techniques (amiante, plomb, termite, radon)</li>
+                            <li>Plan du cadastre</li>
+                            <li>Permis de démolir si nécessaire</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Interactif -->
+        <div id="quiz" class="content-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div class="score" id="scoreDisplay">Score: 0/0</div>
+            
+            <div id="quizContainer">
+                <!-- Les questions seront générées par JavaScript -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn" id="startQuiz" onclick="startQuiz()">Commencer le Quiz</button>
+                <button class="btn" id="nextQuestion" onclick="nextQuestion()" style="display: none;">Question Suivante</button>
+                <button class="btn" id="restartQuiz" onclick="restartQuiz()" style="display: none;">Recommencer</button>
+            </div>
+        </div>
+
+        <!-- Synthèse Pareto -->
+        <div id="pareto" class="content-section">
+            <div class="pareto-section">
+                <h2 style="color: #ff6b6b; margin-bottom: 20px;">🎯 Principe de Pareto - 20% Essentiel = 80% des Connaissances</h2>
+                
+                <div class="key-concept">
+                    <div class="importance-badge">CRITIQUE - 25%</div>
+                    <h3>1. Documents du Maître d'Œuvre</h3>
+                    <p><strong>Permis de construire :</strong> Base fondamentale pour comprendre l'ouvrage et ses contraintes réglementaires. Sans ces documents, impossible de rédiger un DCE cohérent.</p>
+                </div>
+
+                <div class="key-concept">
+                    <div class="importance-badge">CRITIQUE - 25%</div>
+                    <h3>2. Programme du Maître d'Ouvrage</h3>
+                    <p><strong>Obligatoire en marché public :</strong> Définit les besoins, spécifications, contraintes et financement. Document stratégique pour orienter toute l'analyse.</p>
+                </div>
+
+                <div class="key-concept">
+                    <div class="importance-badge">ESSENTIEL - 20%</div>
+                    <h3>3. Rapport Géotechnique</h3>
+                    <p><strong>Impact direct sur les fondations :</strong> Détermine les contraintes techniques majeures et influence significativement les coûts de construction.</p>
+                </div>
+
+                <div class="key-concept">
+                    <div class="importance-badge">ESSENTIEL - 15%</div>
+                    <h3>4. Documents Sécurité & Qualité</h3>
+                    <p><strong>PGC-SPS et SDQ :</strong> Obligatoires pour définir les exigences de sécurité et qualité qui impactent directement les entreprises.</p>
+                </div>
+
+                <div class="key-concept">
+                    <div class="importance-badge">IMPORTANT - 15%</div>
+                    <h3>5. Documents Spécialisés</h3>
+                    <p><strong>Rapports techniques :</strong> Acoustique, thermique, environnement - définissent les contraintes techniques spécifiques selon le projet.</p>
+                </div>
+
+                <div class="mnemonic-box">
+                    <h3 style="margin-bottom: 15px;">💡 Moyen Mnémotechnique</h3>
+                    <div class="mnemonic-letters">PPGSTS</div>
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        <strong>P</strong>ermis + <strong>P</strong>rogramme + <strong>G</strong>éotechnique + <strong>S</strong>écurité + <strong>T</strong>echnique + <strong>S</strong>pécifique
+                    </p>
+                    <p style="margin-top: 15px; font-size: 0.95em; opacity: 0.9;">
+                        Ces 6 catégories représentent 80% des connaissances essentielles du module !
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/module-7-1-1.js"></script>
+</body>
+</html>
