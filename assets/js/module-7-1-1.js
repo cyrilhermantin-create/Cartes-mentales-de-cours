@@ -617,3 +617,16 @@ function showSection(sectionId) {
   // Activer le bouton correspondant
   document.querySelector(`.tab-btn[onclick="showSection('${sectionId}')"]`).classList.add('active');
 }
+function showSection(sectionId) {
+  document.querySelectorAll('.content-section').forEach(section => {
+    section.style.display = section.id === sectionId ? 'block' : 'none';
+  });
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  const activeBtn = document.querySelector(`.tab-btn[data-target="${sectionId}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+}
+
