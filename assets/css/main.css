@@ -195,6 +195,10 @@ body {
     margin-right: 10px;
     font-size: 0.8em;
 }
+.branch-details {
+  display: none;
+  margin-top: 10px;
+}
 
 .priority-badge {
     position: absolute;
