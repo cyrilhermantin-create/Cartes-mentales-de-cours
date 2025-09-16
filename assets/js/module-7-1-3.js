@@ -221,7 +221,7 @@ function showResults() {
     document.getElementById('restartQuiz').style.display = 'inline-block';
     
     // Sauvegarder le score pour la progression
-    saveProgress('module-7-1-2', percentage);
+    saveProgress('module-7-1-3', percentage);
 }
 
 function restartQuiz() {
