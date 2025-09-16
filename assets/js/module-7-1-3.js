@@ -39,4 +39,21 @@ function toggleDetails(id) {
   </div>
   <div class="quiz-feedback"></div>
 </div>
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".tab-btn");
+  const sections = document.querySelectorAll(".content-section");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.target;
+
+      sections.forEach(section => section.classList.remove("active"));
+      document.getElementById(target).classList.add("active");
+
+      tabs.forEach(btn => btn.classList.remove("active"));
+      tab.classList.add("active");
+    });
+  });
+});
+
 
