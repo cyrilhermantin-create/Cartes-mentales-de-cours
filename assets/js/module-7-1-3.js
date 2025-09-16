@@ -14,3 +14,13 @@ function toggleDetails(id) {
   const el = document.getElementById(id);
   el.style.display = el.style.display === 'block' ? 'none' : 'block';
 }
+<div class="quiz-container">
+  <div class="quiz-question">Quel document formalise le contrat entre les parties ?</div>
+  <div class="quiz-options">
+    <button class="button" onclick="checkAnswer(0)">Le CCTP</button>
+    <button class="button" onclick="checkAnswer(1)">Le règlement de la consultation</button>
+    <button class="button" onclick="checkAnswer(2)">L’acte d’engagement</button>
+    <button class="button" onclick="checkAnswer(3)">Le CCAP</button>
+  </div>
+  <div class="quiz-feedback"></div>
+</div>
