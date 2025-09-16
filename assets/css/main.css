@@ -953,6 +953,13 @@ body {
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
     animation: shimmer 2s infinite;
 }
+   .content-section {
+  display: none;
+}
+.content-section.active {
+  display: block;
+}
+
 
 @keyframes shimmer {
     0% { transform: translateX(-100%); }
