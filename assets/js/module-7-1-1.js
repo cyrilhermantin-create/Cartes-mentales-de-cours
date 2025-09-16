@@ -71,44 +71,32 @@ const questions = [
             "Permis + Programme + Géotechnique uniquement",
             "Tous les documents mentionnés dans le cours",
             "Permis + Programme + Diagnostics existant + Sécurité + Accessibilité",
-            "Programme + Géotechnique + Environ
+            "Programme + Géotechnique + Environnement"
+        ],
+        correct: 2,
+        feedback: "Pour une école (ERP), tous ces documents sont critiques : réglementation stricte, sécurité renforcée, accessibilité obligatoire, état de l'existant crucial."
+    }
+];
 
-        // ===== VARIABLES GLOBALES =====
 let currentQuestion = 0;
 let score = 0;
-let questions = [];
-let userAnswers = [];
+let quizStarted = false;
 
-// ===== FONCTIONS PRINCIPALES D'INTERACTIVITÉ =====
+// ==========================================
+// FONCTIONS DE NAVIGATION
+// ==========================================
 
-/**
- * Fonction pour changer d'onglet (Carte Mentale, Quiz, Pareto)
- */
-function showSection(sectionName) {
-    // Cacher toutes les sections
-    const sections = document.querySelectorAll('.content-section');
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Désactiver tous les boutons d'onglet
-    const tabs = document.querySelectorAll('.tab-btn');
-    tabs.forEach(tab => {
-        tab.classList.remove('active');
-    });
+function showSection(section) {
+    // Masquer toutes les sections
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     
     // Afficher la section sélectionnée
-    const targetSection = document.getElementById(sectionName);
-    if (targetSection) {
-        targetSection.classList.add('active');
-    }
+    document.getElementById(section).classList.add('active');
     
-    // Activer l'onglet correspondant (chercher par contenu texte si event n'est pas disponible)
-    const activeTab = Array.from(tabs).find(tab => {
-        const text = tab.textContent.toLowerCase();
-        return (sectionName === 'mindmap' && text.includes('carte')) ||
-               (sectionName === 'quiz' && text.includes('quiz')) ||
-               (sectionName === 'pareto' && text.includes('pareto'));
+    // Activer le bouton correspondant
+    const activeTab = Array.from(document.querySelectorAll('.tab-btn')).find(btn => {
+        return btn.getAttribute('onclick').includes(section);
     });
     
     if (activeTab) {
@@ -116,455 +104,187 @@ function showSection(sectionName) {
     }
 }
 
-/**
- * Fonction pour afficher/masquer les détails des branches (menu déroulant)
- * Utilise la méthode PARETO et taxonomie de Bloom
- */
-function toggleDetails(branchId) {
-    const details = document.getElementById(branchId);
-    const branch = details?.parentElement;
-    
-    if (!details || !branch) {
-        console.error(`Élément non trouvé: ${branchId}`);
+function toggleDetails(id) {
+    const details = document.getElementById(id);
+    if (!details) {
+        console.error('Élément non trouvé:', id);
         return;
     }
     
-    // Si déjà ouvert, fermer
-    if (details.classList.contains('show')) {
-        details.classList.remove('show');
-        branch.classList.remove('expanded');
-        
-        // Animation de fermeture
-        details.style.maxHeight = '0px';
-        details.style.opacity = '0';
+    if (details.style.display === 'none' || details.style.display === '') {
+        details.style.display = 'block';
     } else {
-        // Fermer tous les autres détails d'abord (accordéon)
-        const allDetails = document.querySelectorAll('.branch-details');
-        const allBranches = document.querySelectorAll('.branch');
-        
-        allDetails.forEach(detail => {
-            detail.classList.remove('show');
-            detail.style.maxHeight = '0px';
-            detail.style.opacity = '0';
-        });
-        allBranches.forEach(br => br.classList.remove('expanded'));
-        
-        // Ouvrir le détail sélectionné
-        details.classList.add('show');
-        branch.classList.add('expanded');
-        
-        // Animation d'ouverture
-        details.style.maxHeight = details.scrollHeight + 'px';
-        details.style.opacity = '1';
-        
-        // Scroll vers l'élément ouvert pour une meilleure UX
-        setTimeout(() => {
-            branch.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
-            });
-        }, 100);
+        details.style.display = 'none';
     }
 }
 
-// ===== SYSTÈME DE QUIZ INTERACTIF =====
+// ==========================================
+// FONCTIONS DU QUIZ
+// ==========================================
 
-/**
- * Questions du quiz basées sur le module 7-1-1 et la transcription
- * Organisées selon la taxonomie de Bloom (Connaissance → Application → Analyse)
- */
-const quizQuestions = [
-    // Niveau 1 - Connaissance (Bloom)
-    {
-        question: "Qui fournit le programme dans un projet de construction ?",
-        answers: [
-            "Le maître d'œuvre", 
-            "Le maître d'ouvrage", 
-            "L'entreprise générale", 
-            "Le bureau d'études"
-        ],
-        correct: 1,
-        explanation: "Le programme est fourni par le maître d'ouvrage et définit ses besoins, spécifications et contraintes. Il est obligatoire en marché public.",
-        level: "Connaissance",
-        importance: "CRITIQUE - 25%"
-    },
-    
-    // Niveau 2 - Compréhension (Bloom)
-    {
-        question: "Que contient principalement le rapport géotechnique ?",
-        answers: [
-            "Les plans architecturaux", 
-            "La nature du sol et contraintes géotechniques", 
-            "Les réseaux existants", 
-            "Les normes environnementales"
-        ],
-        correct: 1,
-        explanation: "Le rapport géotechnique, établi par un géotechnicien, analyse la nature du sol et détermine les contraintes qui impacteront les fondations.",
-        level: "Compréhension",
-        importance: "ESSENTIEL - 20%"
-    },
-    
-    // Niveau 3 - Application (Bloom)
-    {
-        question: "Dans le contexte de la sécurité chantier, que signifie PGC-SPS ?",
-        answers: [
-            "Plan Général de Coordination-Sécurité et Protection de la Santé", 
-            "Programme Général de Construction et Sécurité", 
-            "Plan de Gestion des Chantiers Sécurisés", 
-            "Protocole Général de Contrôle Sécurité"
-        ],
-        correct: 0,
-        explanation: "PGC-SPS = Plan Général de Coordination-Sécurité et Protection de la Santé, établi par le coordonnateur de sécurité pour identifier les risques du site.",
-        level: "Application",
-        importance: "ESSENTIEL - 15%"
-    },
-    
-    // Niveau 4 - Analyse (Bloom) 
-    {
-        question: "Selon le principe de Pareto, quels sont les 3 documents représentant 80% des informations critiques ?",
-        answers: [
-            "Permis + Programme + Géotechnique", 
-            "Programme + Sécurité + Qualité", 
-            "Géotechnique + Environnement + Réseaux", 
-            "Permis + Sécurité + Environnement"
-        ],
-        correct: 0,
-        explanation: "Les 3 documents critiques (80% de l'analyse) : Permis de construire (compréhension ouvrage), Programme (besoins MO), Rapport géotechnique (contraintes sol).",
-        level: "Analyse",
-        importance: "CRITIQUE - 60%"
-    },
-    
-    // Niveau 5 - Synthèse (Bloom)
-    {
-        question: "Pour une intervention sur existant, quels diagnostics sont obligatoires ?",
-        answers: [
-            "Acoustique et thermique uniquement", 
-            "Amiante, plomb, termite, radon", 
-            "Géotechnique et topographie", 
-            "Sécurité et environnement"
-        ],
-        correct: 1,
-        explanation: "Sur existant : diagnostics techniques obligatoires (amiante, plomb, termite, radon) + relevé géomètre + plan cadastre. Permis de démolir si nécessaire.",
-        level: "Synthèse",
-        importance: "IMPORTANT - 15%"
-    },
-    
-    // Niveau 6 - Évaluation (Bloom)
-    {
-        question: "Évaluez l'importance relative : quel document a le PLUS d'impact sur le DCE ?",
-        answers: [
-            "Rapport acoustique (confort)", 
-            "Programme du MO (besoins fondamentaux)", 
-            "Notice environnement (réglementation)", 
-            "Plan cadastre (parcellaire)"
-        ],
-        correct: 1,
-        explanation: "Le Programme du Maître d'Ouvrage est LE document fondamental : il définit TOUS les besoins, contraintes et objectifs qui orienteront l'ensemble du DCE.",
-        level: "Évaluation",
-        importance: "CRITIQUE - 25%"
-    }
-];
-
-/**
- * Initialisation du quiz
- */
 function startQuiz() {
-    questions = [...quizQuestions];
+    quizStarted = true;
     currentQuestion = 0;
     score = 0;
-    userAnswers = [];
-    
-    // Gestion de l'affichage des boutons
-    const startBtn = document.getElementById('startQuiz');
-    const restartBtn = document.getElementById('restartQuiz');
-    const nextBtn = document.getElementById('nextQuestion');
-    
-    if (startBtn) startBtn.style.display = 'none';
-    if (restartBtn) restartBtn.style.display = 'none';
-    if (nextBtn) nextBtn.style.display = 'none';
-    
+    document.getElementById('startQuiz').style.display = 'none';
+    document.getElementById('restartQuiz').style.display = 'none';
     showQuestion();
-    updateProgressBar();
-    updateScore();
 }
 
-/**
- * Affichage d'une question
- */
 function showQuestion() {
     if (currentQuestion >= questions.length) {
         showResults();
         return;
     }
-    
+
     const question = questions[currentQuestion];
     const container = document.getElementById('quizContainer');
     
-    if (!container) return;
-    
+    const bloomLabels = {
+        'memorisation': 'Mémorisation',
+        'comprehension': 'Compréhension', 
+        'application': 'Application',
+        'analyse': 'Analyse',
+        'evaluation': 'Évaluation',
+        'creation': 'Création'
+    };
+
     container.innerHTML = `
-        <div class="question-card">
-            <div class="question-header">
-                <h3>Question ${currentQuestion + 1}/${questions.length}</h3>
-                <div class="question-meta">
-                    <span class="bloom-level">${question.level}</span>
-                    <span class="importance-badge">${question.importance}</span>
-                </div>
+        <div class="quiz-container">
+            <div class="bloom-level bloom-${question.level}">
+                Niveau Bloom: ${bloomLabels[question.level]}
             </div>
-            <p class="question-text">${question.question}</p>
-            <div class="answers">
-                ${question.answers.map((answer, index) => 
-                    `<button class="answer-btn" onclick="selectAnswer(${index})" data-index="${index}">
-                        <span class="answer-letter">${String.fromCharCode(65 + index)}</span>
-                        <span class="answer-text">${answer}</span>
-                    </button>`
-                ).join('')}
+            <div class="question">${question.question}</div>
+            <div class="options">
+                ${question.options.map((option, index) => `
+                    <div class="option" onclick="selectOption(${index})">${option}</div>
+                `).join('')}
             </div>
-            <div id="feedback" class="feedback" style="display: none;"></div>
+            <div class="quiz-feedback" id="feedback"></div>
         </div>
     `;
-}
 
-/**
- * Sélection d'une réponse
- */
-function selectAnswer(selectedIndex) {
-    const question = questions[currentQuestion];
-    const answerBtns = document.querySelectorAll('.answer-btn');
-    const feedback = document.getElementById('feedback');
-    
-    // Désactiver tous les boutons et marquer la bonne/mauvaise réponse
-    answerBtns.forEach((btn, index) => {
-        btn.disabled = true;
-        btn.style.cursor = 'not-allowed';
-        
-        if (index === question.correct) {
-            btn.classList.add('correct');
-        } else if (index === selectedIndex && index !== question.correct) {
-            btn.classList.add('incorrect');
-        }
-    });
-    
-    // Enregistrer la réponse
-    userAnswers.push(selectedIndex);
-    
-    // Afficher le feedback avec taxonomie de Bloom
-    const isCorrect = selectedIndex === question.correct;
-    if (isCorrect) {
-        score++;
-        feedback.innerHTML = `
-            <div class="correct-feedback">
-                <div class="feedback-header">
-                    <span class="feedback-icon">✅</span>
-                    <span class="feedback-title">Excellent !</span>
-                </div>
-                <p><strong>Niveau ${question.level} maîtrisé</strong></p>
-                <p>${question.explanation}</p>
-            </div>
-        `;
-    } else {
-        feedback.innerHTML = `
-            <div class="incorrect-feedback">
-                <div class="feedback-header">
-                    <span class="feedback-icon">❌</span>
-                    <span class="feedback-title">À réviser</span>
-                </div>
-                <p><strong>Niveau ${question.level} à approfondir</strong></p>
-                <p>${question.explanation}</p>
-            </div>
-        `;
-    }
-    
-    feedback.style.display = 'block';
-    
-    // Afficher le bouton suivant
-    const nextBtn = document.getElementById('nextQuestion');
-    if (nextBtn) nextBtn.style.display = 'inline-block';
-    
+    updateProgress();
     updateScore();
 }
 
-/**
- * Question suivante
- */
-function nextQuestion() {
-    currentQuestion++;
-    showQuestion();
-    updateProgressBar();
+function selectOption(selectedIndex) {
+    const question = questions[currentQuestion];
+    const options = document.querySelectorAll('.option');
+    const feedback = document.getElementById('feedback');
     
-    const nextBtn = document.getElementById('nextQuestion');
-    if (nextBtn) nextBtn.style.display = 'none';
+    // Désactiver tous les clics
+    options.forEach((option, index) => {
+        option.onclick = null;
+        if (index === question.correct) {
+            option.classList.add('correct');
+        } else if (index === selectedIndex) {
+            option.classList.add('incorrect');
+        }
+    });
+
+    // Afficher le feedback
+    if (selectedIndex === question.correct) {
+        score++;
+        feedback.className = 'quiz-feedback correct';
+        feedback.innerHTML = '✅ ' + question.feedback;
+    } else {
+        feedback.className = 'quiz-feedback incorrect';
+        feedback.innerHTML = '❌ ' + question.feedback;
+    }
+    feedback.style.display = 'block';
+
+    // Afficher le bouton suivant
+    document.getElementById('nextQuestion').style.display = 'inline-block';
+    updateScore();
 }
 
-/**
- * Affichage des résultats avec analyse Pareto
- */
+function nextQuestion() {
+    currentQuestion++;
+    document.getElementById('nextQuestion').style.display = 'none';
+    showQuestion();
+}
+
 function showResults() {
     const container = document.getElementById('quizContainer');
     const percentage = Math.round((score / questions.length) * 100);
     
-    // Analyse selon Pareto et Bloom
-    let bloomAnalysis = '';
-    let paretoAnalysis = '';
+    let resultMessage = '';
+    let resultClass = '';
+    let recommendations = '';
     
-    if (percentage >= 90) {
-        bloomAnalysis = '🎓 Maîtrise excellente de tous les niveaux de Bloom';
-        paretoAnalysis = '📊 Vous maîtrisez les 80% essentiels + les détails (20%)';
-    } else if (percentage >= 80) {
-        bloomAnalysis = '👍 Bonne maîtrise, approfondissez les niveaux supérieurs';
-        paretoAnalysis = '✅ Vous maîtrisez les 80% essentiels du module';
-    } else if (percentage >= 60) {
-        bloomAnalysis = '📚 Connaissances de base acquises, travaillez l\'application';
-        paretoAnalysis = '⚠️ Concentrez-vous sur les 20% critiques (PPGSTS)';
+    if (percentage >= 85) {
+        resultMessage = 'Excellence ! Vous maîtrisez parfaitement l\'analyse DCE.';
+        resultClass = 'correct';
+        recommendations = 'Vous êtes prêt pour la mise en pratique professionnelle.';
+    } else if (percentage >= 70) {
+        resultMessage = 'Très bien ! Bonne maîtrise globale du module.';
+        resultClass = 'correct';
+        recommendations = 'Revoyez les questions ratées avec la carte mentale.';
+    } else if (percentage >= 50) {
+        resultMessage = 'Correct, mais des améliorations sont nécessaires.';
+        resultClass = 'incorrect';
+        recommendations = 'Focalisez-vous sur la synthèse Pareto (PPGSTS) et recommencez.';
     } else {
-        bloomAnalysis = '🔄 Révision nécessaire des concepts fondamentaux';
-        paretoAnalysis = '🚨 Priorité absolue : Programme + Permis + Géotechnique';
+        resultMessage = 'Révision indispensable. Reprenez le cours complet.';
+        resultClass = 'incorrect';
+        recommendations = 'Commencez par mémoriser les 6 piliers PPGSTS, puis utilisez la carte mentale.';
     }
-    
-    if (!container) return;
-    
+
     container.innerHTML = `
-        <div class="results-card">
-            <h3>🎯 Analyse de vos résultats</h3>
-            <div class="final-score">${score}/${questions.length}</div>
-            <div class="percentage">${percentage}%</div>
-            
-            <div class="analysis-section">
-                <div class="bloom-analysis">
-                    <h4>📚 Taxonomie de Bloom</h4>
-                    <p>${bloomAnalysis}</p>
-                </div>
-                
-                <div class="pareto-analysis">
-                    <h4>⚖️ Principe de Pareto</h4>
-                    <p>${paretoAnalysis}</p>
-                </div>
+        <div class="quiz-container">
+            <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">🎯 Résultats du Quiz</h2>
+            <div class="score" style="font-size: 2.5em; margin: 20px 0;">${score}/${questions.length} (${percentage}%)</div>
+            <div class="quiz-feedback ${resultClass}" style="display: block; text-align: center; font-size: 1.1em;">
+                <strong>${resultMessage}</strong>
             </div>
-            
-            <div class="detailed-results">
-                <h4>📋 Détail par question</h4>
-                ${questions.map((q, index) => {
-                    const isCorrect = userAnswers[index] === q.correct;
-                    return `
-                        <div class="result-item ${isCorrect ? 'correct' : 'incorrect'}">
-                            <div class="result-header">
-                                <span class="result-icon">${isCorrect ? '✅' : '❌'}</span>
-                                <span class="result-level">${q.level}</span>
-                                <span class="result-importance">${q.importance}</span>
-                            </div>
-                            <p class="result-question">${q.question}</p>
-                        </div>
-                    `;
-                }).join('')}
+            <div style="margin-top: 25px; padding: 20px; background: rgba(102, 126, 234, 0.1); border-radius: 12px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">📚 Recommandations :</h3>
+                <p style="line-height: 1.6;">${recommendations}</p>
             </div>
-            
-            <div class="recommendation">
-                <h4>💡 Recommandation</h4>
-                <p>Mémorisez le moyen mnémotechnique : <strong>PPGSTS</strong><br>
-                <em>Permis + Programme + Géotechnique + Sécurité + Technique + Spécifique</em></p>
+            <div style="margin-top: 20px; text-align: center;">
+                <p style="color: #666; font-style: italic;">
+                    💡 Conseil : Un score ≥ 80% indique une maîtrise opérationnelle du module.
+                </p>
             </div>
         </div>
     `;
-    
-    const restartBtn = document.getElementById('restartQuiz');
-    if (restartBtn) restartBtn.style.display = 'inline-block';
-    
-    updateProgressBar();
+
+    document.getElementById('restartQuiz').style.display = 'inline-block';
 }
 
-/**
- * Recommencer le quiz
- */
 function restartQuiz() {
-    const startBtn = document.getElementById('startQuiz');
-    const restartBtn = document.getElementById('restartQuiz');
-    const nextBtn = document.getElementById('nextQuestion');
-    
-    if (startBtn) startBtn.style.display = 'inline-block';
-    if (restartBtn) restartBtn.style.display = 'none';
-    if (nextBtn) nextBtn.style.display = 'none';
-    
-    const container = document.getElementById('quizContainer');
-    if (container) {
-        container.innerHTML = `
-            <div class="quiz-intro">
-                <h3>🧠 Quiz Interactif - Module 7-1-1</h3>
-                <p>Testez vos connaissances avec 6 questions organisées selon la taxonomie de Bloom et analysées par le principe de Pareto.</p>
-                <div class="quiz-features">
-                    <span class="feature">📊 Analyse Pareto</span>
-                    <span class="feature">🎓 Taxonomie Bloom</span>
-                    <span class="feature">💡 Mnémotechnique</span>
-                </div>
-            </div>
-        `;
-    }
-    
-    // Reset des indicateurs
-    const progressBar = document.getElementById('progressBar');
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    
-    if (progressBar) progressBar.style.width = '0%';
-    if (scoreDisplay) scoreDisplay.textContent = 'Score: 0/0';
+    document.getElementById('restartQuiz').style.display = 'none';
+    document.getElementById('startQuiz').style.display = 'inline-block';
+    document.getElementById('quizContainer').innerHTML = '';
+    document.getElementById('progressBar').style.width = '0%';
+    document.getElementById('scoreDisplay').textContent = 'Score: 0/0';
+    quizStarted = false;
 }
 
-/**
- * Mise à jour de la barre de progression
- */
-function updateProgressBar() {
-    const progressBar = document.getElementById('progressBar');
-    if (!progressBar) return;
-    
-    const progress = Math.min((currentQuestion / questions.length) * 100, 100);
-    progressBar.style.width = progress + '%';
-    
-    // Changement de couleur selon le progrès
-    if (progress === 100) {
-        progressBar.style.backgroundColor = '#10b981'; // Vert
-    } else if (progress >= 50) {
-        progressBar.style.backgroundColor = '#f59e0b'; // Orange
-    } else {
-        progressBar.style.backgroundColor = '#3b82f6'; // Bleu
-    }
+function updateProgress() {
+    const progress = ((currentQuestion + 1) / questions.length) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
 }
 
-/**
- * Mise à jour du score
- */
 function updateScore() {
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    if (!scoreDisplay) return;
-    
-    const totalAnswered = Math.max(currentQuestion, userAnswers.length);
-    scoreDisplay.textContent = `Score: ${score}/${totalAnswered}`;
-    
-    // Couleur du score selon performance
-    if (totalAnswered > 0) {
-        const percentage = (score / totalAnswered) * 100;
-        if (percentage >= 80) {
-            scoreDisplay.style.color = '#10b981'; // Vert
-        } else if (percentage >= 60) {
-            scoreDisplay.style.color = '#f59e0b'; // Orange
-        } else {
-            scoreDisplay.style.color = '#ef4444'; // Rouge
-        }
-    }
+    document.getElementById('scoreDisplay').textContent = `Score: ${score}/${currentQuestion + (quizStarted ? 1 : 0)}`;
 }
 
-// ===== INITIALISATION =====
+// ==========================================
+// INITIALISATION
+// ==========================================
 
-/**
- * Initialisation au chargement de la page
- */
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Module 7-1-1 initialisé avec succès');
     
-    // Initialisation du quiz
+    // Initialiser le quiz container
     const quizContainer = document.getElementById('quizContainer');
     if (quizContainer) {
         quizContainer.innerHTML = `
             <div class="quiz-intro">
                 <h3>🧠 Quiz Interactif - Module 7-1-1</h3>
-                <p>Testez vos connaissances avec 6 questions organisées selon la taxonomie de Bloom et analysées par le principe de Pareto.</p>
+                <p>Testez vos connaissances avec 6 questions organisées selon la taxonomie de Bloom.</p>
                 <div class="quiz-features">
                     <span class="feature">📊 Analyse Pareto</span>
                     <span class="feature">🎓 Taxonomie Bloom</span>
@@ -574,59 +294,5 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
     
-    // Vérification que tous les éléments sont présents
-    const requiredElements = ['mindmap', 'quiz', 'pareto'];
-    requiredElements.forEach(id => {
-        const element = document.getElementById(id);
-        if (!element) {
-            console.warn(`⚠️ Élément manquant: ${id}`);
-        }
-    });
-    
-    // Ajout des écouteurs d'événements pour les branches
-    const branches = document.querySelectorAll('.branch');
-    branches.forEach(branch => {
-        branch.addEventListener('click', function() {
-            // Récupérer l'ID depuis l'attribut onclick ou data
-            const onclickAttr = this.getAttribute('onclick');
-            if (onclickAttr) {
-                const match = onclickAttr.match(/toggleDetails\('([^']+)'\)/);
-                if (match) {
-                    toggleDetails(match[1]);
-                }
-            }
-        });
-    });
-    
-    console.log('✅ Carte mentale interactive prête !');
+    console.log('✅ Module prêt !');
 });
-function showSection(sectionId) {
-  // Masquer toutes les sections
-  document.querySelectorAll('.content-section').forEach(section => {
-    section.classList.remove('active');
-  });
-
-  // Retirer l'état actif des boutons
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-
-  // Afficher la section sélectionnée
-  document.getElementById(sectionId).classList.add('active');
-
-  // Activer le bouton correspondant
-  document.querySelector(`.tab-btn[onclick="showSection('${sectionId}')"]`).classList.add('active');
-}
-function showSection(sectionId) {
-  document.querySelectorAll('.content-section').forEach(section => {
-    section.style.display = section.id === sectionId ? 'block' : 'none';
-  });
-
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-
-  const activeBtn = document.querySelector(`.tab-btn[data-target="${sectionId}"]`);
-  if (activeBtn) activeBtn.classList.add('active');
-}
-
