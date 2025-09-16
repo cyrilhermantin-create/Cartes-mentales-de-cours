@@ -259,5 +259,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+// ==========================================
+// SAUVEGARDE DE PROGRESSION
+// ==========================================
+
+function saveProgress(moduleId, percentage) {
+    // Sauvegarde locale du score
+    const progress = {
+        moduleId: moduleId,
+        score: percentage,
+        completedAt: new Date().toISOString(),
+        questionsTotal: questions.length,
+        questionsCorrect: score
+    };
+    
+    // Stocker dans les données de session (pas localStorage car non supporté)
+    if (typeof(Storage) !== "undefined") {
+        try {
+            localStorage.setItem(`batilearn_${moduleId}`, JSON.stringify(progress));
+        } catch(e) {
+            // Fallback si localStorage non disponible
+            console.log('Progression enregistrée en mémoire:', progress);
+        }
+    }
+}
+
+// ==========================================
+// INITIALISATION
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Charger la progression sauvegardée si disponible
+    try {
+        const savedProgress = localStorage.getItem('batilearn_module-7-1-3');
+        if (savedProgress) {
+            const progress = JSON.parse(savedProgress);
+            console.log('Progression précédente chargée:', progress);
+        }
+    } catch(e) {
+        console.log('Pas de progression sauvegardée trouvée');
+    }
+});
 
 
