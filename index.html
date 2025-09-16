@@ -3,265 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formation BTP Economiste de la Construction- Cartes Mentales Interactives</title>
+    <title>🧠 Formation BTP Economiste de la Construction</title>
+    
+    <!-- ✅ CSP corrigée - permettre les scripts et images -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: https:;
+        font-src 'self' data:;
+    ">
+    
+    <!-- Favicon optionnel -->
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA">
+    
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="/Cartes-mentales-de-cours/assets/favicon-32x32.png">
-<!-- ou pour .ico -->
-<link rel="icon" href="/Cartes-mentales-de-cours/favicon.ico" type="image/x-icon">
-
-    <style>
-        /* Styles spécifiques à la page d'accueil */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            padding: 80px 20px;
-            margin: -30px -30px 40px -30px;
-            border-radius: 0 0 30px 30px;
-        }
-
-        .hero h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .hero p {
-            font-size: 1.3em;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .modules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .module-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border: 3px solid transparent;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .module-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(135deg, #4ecdc4, #44a08d);
-            border-radius: 20px 20px 0 0;
-        }
-
-        .module-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-            border-color: #4ecdc4;
-        }
-
-        .module-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .module-icon {
-            font-size: 3em;
-            margin-right: 20px;
-            opacity: 0.8;
-        }
-
-        .module-title {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .module-subtitle {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .module-description {
-            color: #555;
-            line-height: 1.6;
-            margin: 20px 0;
-        }
-
-        .module-stats {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-        }
-
-        .stat-item::before {
-            margin-right: 5px;
-            font-size: 1.2em;
-        }
-
-        .stat-questions::before { content: "❓"; }
-        .stat-time::before { content: "⏱️"; }
-        .stat-level::before { content: "📊"; }
-
-        .module-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .module-btn:hover {
-            background: linear-gradient(135deg, #5a6fd8, #6a42a0);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .features-section {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(78, 205, 196, 0.1));
-            padding: 40px;
-            border-radius: 20px;
-            margin: 50px 0;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .feature-item {
-            text-align: center;
-            padding: 25px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        }
-
-        .feature-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-            opacity: 0.8;
-        }
-
-        .progress-section {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .progress-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .progress-item:last-child {
-            border-bottom: none;
-        }
-
-        .progress-bar-small {
-            width: 150px;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill-small {
-            height: 100%;
-            background: linear-gradient(135deg, #4ecdc4, #44a08d);
-            transition: width 0.5s ease;
-        }
-
-        .coming-soon {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .coming-soon .module-btn {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            background: #4ecdc4;
-            color: white;
-            border-radius: 15px;
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-
-        .badge.new {
-            background: #ff6b6b;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2em;
-            }
-            
-            .modules-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .module-stats {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
-        <div class="hero">
+        <header class="hero">
             <h1>🧠 Formation BTP Economiste de la Construction</h1>
-            <p>Cartes mentales interactives et quiz adaptatifs pour maîtriser vos modules de formation en économie de la construction</p>
+            <p class="subtitle">Cartes mentales interactives et quiz adaptatifs</p>
+        </header>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Visualisation interactive</h3>
+                <p>Concepts avec détails dépliables</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚖️</div>
+                <h3>Principe de Pareto</h3>
+                <p>Focus sur les 20% essentiels pour 80% d'efficacité</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <h3>Quiz adaptatifs</h3>
+                <p>6 niveaux cognitifs avec feedback personnalisé</p>
+            </div>
         </div>
 
         <div class="modules-grid">
-            <!-- Module 7-1-1 : Analyse -->
+            <h2>📚 Modules disponibles</h2>
+            
+            <!-- ✅ Module 7-1-1-Analyse (existant et fonctionnel) -->
             <div class="module-card">
                 <div class="module-header">
+                    <span class="module-number">7-1-1</span>
+                    <span class="module-status available">✅ Disponible</span>
                     <div class="module-icon">📋</div>
                     <div>
                         <div class="module-title">Module 7-1-1 : Analyse</div>
@@ -282,9 +72,8 @@
                 <button class="module-btn" onclick="window.location.href='modules/module-7-1-1-analyse.html'">
                     Commencer l'Analyse 📚
                 </button>
-            </div>
-
-            <!-- Module 7-1-2 : Synthèse -->
+                </div>
+                <!-- Module 7-1-2 : Synthèse -->
             <div class="module-card">
                 <div class="module-header">
                     <div class="module-icon">🔄</div>
@@ -293,41 +82,115 @@
                         <div class="module-subtitle">Synthèse générale et technique</div>
                         <span class="badge new">NOUVEAU</span>
                     </div>
-                    <!-- Module 7-1-3 : Rédaction DCE -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-icon">🔄</div>
-                     <a href="module-7-1-3.html">Quiz Rédaction du DCE</a>    
-                    <div>
-                        <div class="module-title">Module 7-1-3 : Rédaction </div>
-                        <div class="module-subtitle"> Rédaction DCE(Dossier de consultation des Entreprises)</div>
-                        <span class="badge new">NOUVEAU</span>
-                    </div>
-                   
-
+                <h3>Analyse avant rédaction du DCE</h3>
+                <p>Documents nécessaires pour l'analyse préalable</p>
+                <div class="module-content">
+                    <ul>
+                        <li>📋 Documents du permis de construire</li>
+                        <li>📝 Programme du maître d'ouvrage</li>
+                        <li>🏗️ Rapport géotechnique</li>
+                        <li>🛡️ PGC-SPS et documents de sécurité</li>
+                    </ul>
                 </div>
-                
-                <div class="module-description">
-                    Apprenez à réaliser la synthèse d'opération : identification des acteurs, modalités financières, points à risque et organisation du contrôle. Méthode S-R-T-P optimisée.
-                </div>
-
-                <div class="module-stats">
-                    <div class="stat-item stat-questions">8 questions</div>
-                    <div class="stat-item stat-time">30 min</div>
-                    <div class="stat-item stat-level">Tous niveaux Bloom</div>
-                </div>
-
-                <button class="module-btn" onclick="window.location.href='modules/module-7-1-2-synthese.html'">
-                    Commencer la Synthèse 🔄
-                </button>
+                <a href="modules/module-7-1-1-analyse.html" class="module-btn">
+                    Accéder au module
+                </a>
             </div>
 
-            <!-- Modules à venir -->
+            <!-- ✅ Module 7-1-3 Rédaction DCE (nouvelle carte mentale) -->
+            <div class="module-card">
+                <div class="module-header">
+                    <span class="module-number">7-1-3</span>
+                    <span class="module-status available">✅ Disponible</span>
+                </div>
+                <h3>Rédaction du DCE</h3>
+                <p>Processus de rédaction du Dossier de Consultation des Entreprises</p>
+                <div class="module-content">
+                    <ul>
+                        <li>📄 Structure du DCE</li>
+                        <li>📋 Cahier des charges</li>
+                        <li>💰 Estimation des coûts</li>
+                        <li>📊 Documents techniques</li>
+                    </ul>
+                </div>
+                <!-- ❗ CORRECTION : Lien vers le bon fichier -->
+                <a href="modules/module-7-1-3-redaction.html" class="module-btn">
+                    Accéder au module
+                </a>
+            </div>
+
+            <!-- ❌ Module en développement (éviter les liens 404) -->
+            <div class="module-card coming-soon">
+                <div class="module-header">
+                    <span class="module-number">8</span>
+                    <span class="module-status development">🚧 En développement</span>
+                </div>
+                <h3>Analyse des offres</h3>
+                <p>Évaluation et comparaison des propositions</p>
+                <div class="module-content">
+                    <ul>
+                        <li>📊 Grille d'analyse</li>
+                        <li>⚖️ Critères de sélection</li>
+                        <li>📈 Rapport d'évaluation</li>
+                        <li>✅ Recommandations</li>
+                    </ul>
+                </div>
+                <button class="module-btn disabled" disabled>
+                    Bientôt disponible
+                </button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Plateforme développée pour maximiser votre réussite en économie de la construction</p>
+            <p>Basée sur les principes pédagogiques modernes : Pareto + Taxonomie de Bloom</p>
+        </footer>
+    </div>
+
+    <!-- ✅ Script avec gestion d'erreurs -->
+    <script>
+        // Gestion des erreurs globales
+        window.addEventListener('error', function(e) {
+            console.warn('Erreur capturée:', e.message);
+        });
+
+        // Animation des cartes au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.module-card, .feature-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Vérification des liens avant navigation
+        document.querySelectorAll('a[href^="modules/"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // Test simple de l'existence du fichier
+                fetch(href, { method: 'HEAD' })
+                    .then(response => {
+                        if (!response.ok) {
+                            e.preventDefault();
+                            alert(`❌ Module non disponible: ${href}\n\nLe fichier n'existe pas encore.`);
+                        }
+                    })
+                    .catch(() => {
+                        e.preventDefault();
+                        alert(`🚧 Module en construction\n\nCe module sera bientôt disponible.`);
+                    });
+            });
+        });
+    </script>
+    <!-- Modules à venir -->
             <div class="module-card coming-soon">
                 <div class="module-header">
                     <div class="module-icon">📊</div>
                     <div>
-                        <div class="module-title">Module 8 : Estimation</div>
+                        <div class="module-title">Module 8 : Descriptif/ Estimation</div>
                         <div class="module-subtitle">Métrés et chiffrage</div>
                         <span class="badge">BIENTÔT</span>
                     </div>
@@ -348,8 +211,7 @@
                 </button>
             </div>
         </div>
-
-        <!-- Section Fonctionnalités -->
+      <!-- Section Fonctionnalités -->
         <div class="features-section">
             <h2 style="text-align: center; color: #333; margin-bottom: 20px;">✨ Fonctionnalités Innovantes</h2>
             
@@ -380,7 +242,7 @@
             </div>
         </div>
 
-        <!-- Section Progression -->
+     <!-- Section Progression -->
         <div class="progress-section">
             <h2 style="color: #333; margin-bottom: 25px;">📊 Votre Progression</h2>
             
@@ -424,7 +286,7 @@
             </div>
         </div>
 
-        <!-- Pied de page -->
+     <!-- Pied de page -->
         <div style="text-align: center; margin-top: 50px; padding: 30px; background: rgba(102, 126, 234, 0.1); border-radius: 15px;">
             <h3 style="color: #667eea; margin-bottom: 15px;">🎓 Formation BTP Economiste de la Construction Optimisée</h3>
             <p style="color: #666; line-height: 1.6;">
