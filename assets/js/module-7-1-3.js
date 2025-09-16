@@ -51,6 +51,9 @@ Chaque question cible un document stratégique du DCE (Pareto 20%) et un niveau 
 let currentQuestion = 0;
 let score = 0;
 let quizStarted = false;
+// ==========================================
+// FONCTIONS DE NAVIGATION
+// ==========================================
 
 function showSection(sectionId) {
   document.querySelectorAll('.content-section').forEach(section => {
