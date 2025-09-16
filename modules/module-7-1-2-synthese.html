@@ -398,10 +398,12 @@
         </div>
 
         <div class="tab-container">
-            <button class="tab-btn active" onclick="showSection('mindmap')">Carte Mentale</button>
-            <button class="tab-btn" onclick="showSection('quiz')">Quiz Interactif</button>
-            <button class="tab-btn" onclick="showSection('pareto')">Synthèse Pareto</button>
+                 
+            <button class="tab-btn active" onclick="showSection('mindmap', event)">Carte Mentale</button>
+            <button class="tab-btn" onclick="showSection('quiz', event)">Quiz Interactif</button>
+            <button class="tab-btn" onclick="showSection('pareto', event)">Synthèse Pareto</button>
         </div>
+
 
         <!-- Carte Mentale -->
         <div id="mindmap" class="content-section active">
