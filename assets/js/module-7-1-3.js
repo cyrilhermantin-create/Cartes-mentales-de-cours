@@ -22,6 +22,13 @@ function toggleDetails(id) {
   const el = document.getElementById(id);
   el.style.display = el.style.display === 'block' ? 'none' : 'block';
 }
+function toggleDetails(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.style.display = el.style.display === 'block' ? 'none' : 'block';
+  }
+}
+
 <div class="quiz-container">
   <div class="quiz-question">Quel document formalise le contrat entre les parties ?</div>
   <div class="quiz-options">
@@ -32,3 +39,4 @@ function toggleDetails(id) {
   </div>
   <div class="quiz-feedback"></div>
 </div>
+
