@@ -3,312 +3,707 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧠 Formation BTP Economiste de la Construction</title>
+    <title>🧠 Formation BTP - Economiste de la Construction</title>
+    <meta name="description" content="Cartes mentales interactives et quiz adaptatifs pour maîtriser l'économie de la construction. Méthode Pareto + Taxonomie de Bloom.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:;">
     
-    <!-- ✅ CSP corrigée - permettre les scripts et images -->
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
-        style-src 'self' 'unsafe-inline';
-        img-src 'self' data: https:;
-        font-src 'self' data:;
-    ">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- Favicon optionnel -->
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA">
-    
-    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #f59e0b;
+            --accent-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --success-color: #10b981;
+            --text-dark: #1f2937;
+            --text-medium: #4b5563;
+            --text-light: #6b7280;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        /* ===== RESET ET BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* ===== HEADER HERO ===== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--gradient-primary);
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="1.5"/></g></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .hero-feature {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 16px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .hero-feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .hero-feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .hero-cta {
+            animation: fadeInUp 0.8s ease 1s both;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: var(--primary-color);
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+            background: #f8fafc;
+        }
+
+        /* ===== SECTION MODULES ===== */
+        .modules-section {
+            background: white;
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .module-card:hover::before {
+            height: 6px;
+        }
+
+        .module-card.available::before {
+            background: var(--gradient-success);
+        }
+
+        .module-card.coming-soon::before {
+            background: var(--gradient-secondary);
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .module-number {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .module-status {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .module-status.available {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .module-status.coming-soon {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .module-description {
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .module-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .module-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            color: var(--text-medium);
+            font-size: 0.875rem;
+        }
+
+        .module-features li::before {
+            content: '✦';
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .module-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .module-button:hover:not(.disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .module-button.disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-section {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .footer-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .module-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .footer-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header class="hero">
-            <h1>🧠 Formation BTP Economiste de la Construction</h1>
-            <p class="subtitle">Cartes mentales interactives et quiz adaptatifs</p>
-        </header>
-
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <h3>Visualisation interactive</h3>
-                <p>Concepts avec détails dépliables</p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-badge">
+                <span>🎯</span>
+                <span>Nouvelle approche pédagogique</span>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚖️</div>
-                <h3>Principe de Pareto</h3>
-                <p>Focus sur les 20% essentiels pour 80% d'efficacité</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎓</div>
-                <h3>Quiz adaptatifs</h3>
-                <p>6 niveaux cognitifs avec feedback personnalisé</p>
-            </div>
-        </div>
-
-        <div class="modules-grid">
-            <h2>📚 Modules disponibles</h2>
             
-            <!-- ✅ Module 7-1-1-Analyse (existant et fonctionnel) -->
-            <div class="module-card">
-                <div class="module-header">
-                    <span class="module-number">7-1-1</span>
-                    <span class="module-status available">✅ Disponible</span>
-                    <div class="module-icon">📋</div>
-                    <div>
-                        <div class="module-title">Module 7-1-1 : Analyse</div>
-                        <div class="module-subtitle">Documents nécessaires avant DCE</div>
-                    </div>
-                </div>
-                
-                <div class="module-description">
-                    Maîtrisez l'analyse des documents essentiels : permis de construire, programme, géotechnique, sécurité et qualité. Application du principe de Pareto pour identifier les 20% de documents critiques.
-                </div>
-
-                <div class="module-stats">
-                    <div class="stat-item stat-questions">6 questions</div>
-                    <div class="stat-item stat-time">25 min</div>
-                    <div class="stat-item stat-level">Tous niveaux Bloom</div>
-                </div>
-
-                <button class="module-btn" onclick="window.location.href='modules/module-7-1-1-analyse.html'">
-                    Commencer l'Analyse 📚
-                </button>
-                </div>
-                <!-- Module 7-1-2 : Synthèse -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-icon">🔄</div>
-                    <div>
-                        <div class="module-title">Module 7-1-2 : Synthèse</div>
-                        <div class="module-subtitle">Synthèse générale et technique</div>
-                        <span class="badge new">NOUVEAU</span>
-                    </div>
-                <h3>Synthese</h3>
-                <p>Documents nécessaires pour l'analyse préalable</p>
-                <div class="module-content">
-                    <ul>
-                        <li>📋 Documents du permis de construire</li>
-                        <li>📝 Programme du maître d'ouvrage</li>
-                        <li>🏗️ Rapport géotechnique</li>
-                        <li>🛡️ PGC-SPS et documents de sécurité</li>
-                    </ul>
-                </div>
-                <a href="modules/module-7-1-2-synthese.html" class="module-btn">
-                    Accéder au module
-                </a>
-                     <div class="module-stats">
-                    <div class="stat-item stat-questions">6 questions</div>
-                    <div class="stat-item stat-time">25 min</div>
-                    <div class="stat-item stat-level">Tous niveaux Bloom</div>
-                </div>
-
-                <button class="module-btn" onclick="window.location.href='modules/module-7-1-2-synthese.html'">
-                    Commencer l'Analyse 📚
-                </button>
-            </div>
-
-            <!-- ✅ Module 7-1-3 Rédaction DCE (nouvelle carte mentale) -->
-            <div class="module-card">
-                <div class="module-header">
-                    <span class="module-number">7-1-3</span>
-                    <span class="module-status available">✅ Disponible</span>
-                </div>
-                <h3>Rédaction du DCE</h3>
-                <p>Processus de rédaction du Dossier de Consultation des Entreprises</p>
-                <div class="module-content">
-                    <ul>
-                        <li>📄 Structure du DCE</li>
-                        <li>📋 Cahier des charges</li>
-                        <li>💰 Estimation des coûts</li>
-                        <li>📊 Documents techniques</li>
-                    </ul>
-                </div>
-                <!-- ❗ CORRECTION : Lien vers le bon fichier -->
-                <a href="modules/module-7-1-3-redaction.html" class="module-btn">
-                    Accéder au module
-                </a>
-            </div>
-
-            <!-- ❌ Module en développement (éviter les liens 404) -->
-            <div class="module-card coming-soon">
-                <div class="module-header">
-                    <span class="module-number">8</span>
-                    <span class="module-status development">🚧 En développement</span>
-                </div>
-                <h3>Analyse des offres</h3>
-                <p>Évaluation et comparaison des propositions</p>
-                <div class="module-content">
-                    <ul>
-                        <li>📊 Grille d'analyse</li>
-                        <li>⚖️ Critères de sélection</li>
-                        <li>📈 Rapport d'évaluation</li>
-                        <li>✅ Recommandations</li>
-                    </ul>
-                </div>
-                <button class="module-btn disabled" disabled>
-                    Bientôt disponible
-                </button>
-            </div>
-        </div>
-
-        <footer class="footer">
-            <p>Plateforme développée pour maximiser votre réussite en économie de la construction</p>
-            <p>Basée sur les principes pédagogiques modernes : Pareto + Taxonomie de Bloom</p>
-        </footer>
-    </div>
-
-    <!-- ✅ Script avec gestion d'erreurs -->
-    <script>
-        // Gestion des erreurs globales
-        window.addEventListener('error', function(e) {
-            console.warn('Erreur capturée:', e.message);
-        });
-
-        // Animation des cartes au chargement
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.module-card, .feature-card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-        });
-
-        // Vérification des liens avant navigation
-        document.querySelectorAll('a[href^="modules/"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                
-                // Test simple de l'existence du fichier
-                fetch(href, { method: 'HEAD' })
-                    .then(response => {
-                        if (!response.ok) {
-                            e.preventDefault();
-                            alert(`❌ Module non disponible: ${href}\n\nLe fichier n'existe pas encore.`);
-                        }
-                    })
-                    .catch(() => {
-                        e.preventDefault();
-                        alert(`🚧 Module en construction\n\nCe module sera bientôt disponible.`);
-                    });
-            });
-        });
-    </script>
-    <!-- Modules à venir -->
-            <div class="module-card coming-soon">
-                <div class="module-header">
-                    <div class="module-icon">📊</div>
-                    <div>
-                        <div class="module-title">Module 8 : Descriptif/ Estimation</div>
-                        <div class="module-subtitle">Métrés et chiffrage</div>
-                        <span class="badge">BIENTÔT</span>
-                    </div>
-                </div>
-                
-                <div class="module-description">
-                    Techniques d'estimation, calcul des métrés, ratio de prix et analyse comparative des offres.
-                </div>
-
-                <div class="module-stats">
-                    <div class="stat-item stat-questions">10 questions</div>
-                    <div class="stat-item stat-time">40 min</div>
-                    <div class="stat-item stat-level">Avancé</div>
-                </div>
-
-                <button class="module-btn">
-                    Prochainement disponible 🚧
-                </button>
-            </div>
-        </div>
-      <!-- Section Fonctionnalités -->
-        <div class="features-section">
-            <h2 style="text-align: center; color: #333; margin-bottom: 20px;">✨ Fonctionnalités Innovantes</h2>
+            <h1 class="hero-title">
+                Formation <span class="highlight">BTP</span><br>
+                Economiste de la Construction
+            </h1>
             
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">🧠</div>
-                    <h3 style="color: #4ecdc4;">Cartes Mentales</h3>
-                    <p>Visualisation interactive des concepts avec détails dépliables</p>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon">🎯</div>
-                    <h3 style="color: #4ecdc4;">Principe de Pareto</h3>
-                    <p>Focus sur les 20% essentiels pour 80% d'efficacité</p>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon">📈</div>
-                    <h3 style="color: #4ecdc4;">Taxonomie de Bloom</h3>
-                    <p>Quiz adaptatifs sur 6 niveaux cognitifs</p>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon">⚡</div>
-                    <h3 style="color: #4ecdc4;">Apprentissage Actif</h3>
-                    <p>Feedback immédiat et recommandations personnalisées</p>
-                </div>
-            </div>
-        </div>
-
-     <!-- Section Progression -->
-        <div class="progress-section">
-            <h2 style="color: #333; margin-bottom: 25px;">📊 Votre Progression</h2>
-            
-            <div class="progress-item">
-                <div>
-                    <strong>Module 7-1-1 : Analyse</strong><br>
-                    <small style="color: #666;">Documents DCE</small>
-                </div>
-                <div>
-                    <div class="progress-bar-small">
-                        <div class="progress-fill-small" style="width: 0%"></div>
-                    </div>
-                    <small style="color: #666;">0% complété</small>
-                </div>
-            </div>
-
-            <div class="progress-item">
-                <div>
-                    <strong>Module 7-1-2 : Synthèse</strong><br>
-                    <small style="color: #666;">Synthèse d'opération</small>
-                </div>
-                <div>
-                    <div class="progress-bar-small">
-                        <div class="progress-fill-small" style="width: 0%"></div>
-                    </div>
-                    <small style="color: #666;">0% complété</small>
-                </div>
-            </div>
-
-            <div class="progress-item">
-                <div>
-                    <strong>Score Global</strong><br>
-                    <small style="color: #666;">Tous modules confondus</small>
-                </div>
-                <div>
-                    <div class="progress-bar-small">
-                        <div class="progress-fill-small" style="width: 0%"></div>
-                    </div>
-                    <small style="color: #666;">0% maîtrisé</small>
-                </div>
-            </div>
-        </div>
-
-     <!-- Pied de page -->
-        <div style="text-align: center; margin-top: 50px; padding: 30px; background: rgba(102, 126, 234, 0.1); border-radius: 15px;">
-            <h3 style="color: #667eea; margin-bottom: 15px;">🎓 Formation BTP Economiste de la Construction Optimisée</h3>
-            <p style="color: #666; line-height: 1.6;">
-                Plateforme d'apprentissage interactive basée sur les principes pédagogiques modernes.<br>
-                Développée pour maximiser votre réussite en économie de la construction.
+            <p class="hero-subtitle">
+                Maîtrisez l'économie de la construction avec nos cartes mentales interactives 
+                et quiz adaptatifs basés sur la méthode Pareto et la taxonomie de Bloom.
             </p>
-            <div style="margin-top: 20px;">
-                <a href="https://github.com/cyrilhermantin-create/Cartes-mentales-de-cours" 
-                   style="color: #667eea; text-decoration: none; font-weight: 600;">
-                    📂 Voir sur GitHub
-                </a>
+            
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <span class="hero-feature-icon">🧠</span>
+                    <h3>Cartes mentales interactives</h3>
+                    <p>Visualisation des concepts avec détails dépliables</p>
+                </div>
+                <div class="hero-feature">
+                    <span class="hero-feature-icon">⚖️</span>
+                    <h3>Principe de Pareto</h3>
+                    <p>80% d'efficacité avec 20% d'effort ciblé</p>
+                </div>
+                <div class="hero-feature">
+                    <span class="hero-feature-icon">🎓</span>
+                    <h3>Taxonomie de Bloom</h3>
+                    <p>Quiz sur 6 niveaux cognitifs progressifs</p>
+                </div>
+            </div>
+            
+            <div class="hero-cta">
+                <button class="cta-button" onclick="scrollToModules()">
+                    <span>🚀</span>
+                    <span>Commencer l'apprentissage</span>
+                </button>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section class="modules-section" id="modules">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title">📚 Modules de formation</h2>
+                <p class="section-subtitle">
+                    Parcours structuré pour maîtriser tous les aspects de l'économie de la construction
+                </p>
+            </div>
+
+            <div class="modules-grid">
+                <!-- Module 7-1-1 -->
+                <div class="module-card available scroll-reveal">
+                    <div class="module-header">
+                        <span class="module-number">7-1-1</span>
+                        <span class="module-status available">Disponible</span>
+                    </div>
+                    <h3 class="module-title">Analyse avant rédaction du DCE</h3>
+                    <p class="module-description">
+                        Documents nécessaires pour l'analyse préalable à la rédaction 
+                        du Dossier de Consultation des Entreprises.
+                    </p>
+                    <ul class="module-features">
+                        <li>Documents du permis de construire</li>
+                        <li>Programme du maître d'ouvrage</li>
+                        <li>Rapport géotechnique et documents techniques</li>
+                        <li>PGC-SPS, SDQ, notices environnementales</li>
+                        <li>Documents pour interventions sur existant</li>
+                    </ul>
+                    <a href="modules/module-7-1-1-analyse.html" class="module-button">
+                        <span>📊</span>
+                        <span>Accéder au module</span>
+                    </a>
+                </div>
+
+                <!-- Module 7-1-3 -->
+                <div class="module-card available scroll-reveal">
+                    <div class="module-header">
+                        <span class="module-number">7-1-3</span>
+                        <span class="module-status available">Disponible</span>
+                    </div>
+                    <h3 class="module-title">Rédaction du DCE</h3>
+                    <p class="module-description">
+                        Processus complet de rédaction du Dossier de Consultation des Entreprises 
+                        en phase conception.
+                    </p>
+                    <ul class="module-features">
+                        <li>Acte d'engagement et hiérarchie des pièces</li>
+                        <li>CCAP - Communication et clauses financières</li>
+                        <li>Règlement de consultation</li>
+                        <li>Clauses juridiques et responsabilités</li>
+                        <li>Qualité, sécurité, environnement</li>
+                    </ul>
+                    <a href="modules/module-7-1-3-redaction.html" class="module-button">
+                        <span>📝</span>
+                        <span>Accéder au module</span>
+                    </a>
+                </div>
+
+                <!-- Module à venir -->
+                <div class="module-card coming-soon scroll-reveal">
+                    <div class="module-header">
+                        <span class="module-number">7-1-2</span>
+                        <span class="module-status coming-soon">Bientôt</span>
+                    </div>
+                    <h3 class="module-title">Analyse des offres</h3>
+                    <p class="module-description">
+                        Évaluation et comparaison des propositions d'entreprises. 
+                        Critères de sélection et rapport d'analyse.
+                    </p>
+                    <ul class="module-features">
+                        <li>Grille d'analyse multicritères</li>
+                        <li>Vérification de la conformité</li>
+                        <li>Analyse technique et financière</li>
+                        <li>Rapport d'évaluation</li>
+                        <li>Recommandations d'attribution</li>
+                    </ul>
+                    <button class="module-button disabled">
+                        <span>🔄</span>
+                        <span>En développement</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="footer-content">
+            <h3 class="footer-title">🎯 Maximisez votre réussite</h3>
+            <p class="footer-description">
+                Plateforme d'apprentissage interactive basée sur les principes pédagogiques modernes. 
+                Développée spécifiquement pour les économistes de la construction.
+            </p>
+            <div class="footer-badges">
+                <span class="footer-badge">📊 Méthode Pareto 80/20</span>
+                <span class="footer-badge">🧠 Taxonomie de Bloom</span>
+                <span class="footer-badge">🎮 Apprentissage gamifié</span>
+                <span class="footer-badge">📱 100% responsive</span>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2024 Formation BTP - Economiste de la Construction • Cyril Hermantin</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== SMOOTH SCROLLING =====
+        function scrollToModules() {
+            document.getElementById('modules').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // ===== SCROLL REVEAL ANIMATION =====
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('revealed');
+                }
+            });
+        }
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Révéler les éléments au chargement
+            setTimeout(revealOnScroll, 100);
+            
+            // Animation des cartes modules au survol
+            const moduleCards = document.querySelectorAll('.module-card');
+            moduleCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Vérification des liens avant navigation
+            document.querySelectorAll('a[href^="modules/"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    // Animation de chargement
+                    const button = this;
+                    const originalText = button.innerHTML;
+                    
+                    button.innerHTML = '<span>⏳</span><span>Chargement...</span>';
+                    button.style.pointerEvents = 'none';
+                    
+                    // Test de l'existence du fichier
+                    fetch(href, { method: 'HEAD' })
+                        .then(response => {
+                            if (!response.ok) {
+                                e.preventDefault();
+                                button.innerHTML = originalText;
+                                button.style.pointerEvents = 'auto';
+                                
+                                alert(`❌ Module temporairement indisponible\n\n${href}\n\nVeuillez réessayer plus tard.`);
+                            }
+                        })
+                        .catch(() => {
+                            e.preventDefault();
+                            button.innerHTML = originalText;
+                            button.style.pointerEvents = 'auto';
+                            
+                            alert('🔄 Vérification de la disponibilité du module...\n\nSi le problème persiste, le module est en cours de développement.');
+                        });
+                });
+            });
+        });
+
+        // ===== SCROLL EVENT LISTENER =====
+        window.addEventListener('scroll', revealOnScroll);
+    </script>
 </body>
 </html>
