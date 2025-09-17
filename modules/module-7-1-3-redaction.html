@@ -1,374 +1,150 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module 7-1-3 - Rédaction DCE - Formation BTP Economiste</title>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;">
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <style>
-        /* Styles spécifiques au module 7-1-3 */
-        .pareto-critical { border-left: 5px solid #dc3545; background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%); }
-        .pareto-essential { border-left: 5px solid #fd7e14; background: linear-gradient(135deg, #fff8f0 0%, #fde2cc 100%); }
-        .pareto-important { border-left: 5px solid #ffc107; background: linear-gradient(135deg, #fffdf0 0%, #fef3cd 100%); }
-        .pareto-complementary { border-left: 5px solid #28a745; background: linear-gradient(135deg, #f7fff7 0%, #d4edda 100%); }
-        
-        .bloom-level {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.7em;
-            font-weight: 600;
-            margin-left: 10px;
-        }
-        .bloom-knowledge { background: #e3f2fd; color: #1565c0; }
-        .bloom-comprehension { background: #f3e5f5; color: #7b1fa2; }
-        .bloom-application { background: #e8f5e8; color: #2e7d32; }
-        .bloom-analysis { background: #fff3e0; color: #ef6c00; }
-        .bloom-synthesis { background: #fce4ec; color: #c2185b; }
-        .bloom-evaluation { background: #f1f8e9; color: #558b2f; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Module 7-1-3 - Rédaction du DCE</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <!-- Garde ton main.css existant ; adapte le chemin si besoin -->
+  <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
-    <div class="container">
-        <div class="back-nav">
-            <a href="../index.html" class="back-btn">← Retour à l'accueil</a>
-        </div>
-
-        <div class="header">
-            <h1>Module 7-1-3 : Rédaction DCE</h1>
-            <p>Documents de consultation des entreprises - Phase conception</p>
-            <div class="pareto-indicator">
-                <span>🎯 Focus Pareto 80/20</span>
-                <span>🧠 Taxonomie de Bloom</span>
-            </div>
-        </div>
-
-        <div class="tab-container">
-            <button class="tab-btn active" onclick="showSection('mindmap')">Carte Mentale</button>
-            <button class="tab-btn" onclick="showSection('quiz')">Quiz Interactif</button>
-            <button class="tab-btn" onclick="showSection('pareto')">Synthèse Pareto</button>
-        </div>
-
-        <!-- Carte Mentale -->
-        <div id="mindmap" class="content-section active">
-            <div class="central-node">
-                Rédaction du DCE<br>
-                <small>Documents de consultation des entreprises</small>
-            </div>
-            
-            <div class="mindmap">
-                <!-- 1. ACTE D'ENGAGEMENT (CRITIQUE - 25%) -->
-                <div class="branch pareto-critical" onclick="toggleDetails('engagement')">
-                    <h3>
-                        <span class="branch-icon">📄</span>
-                        Acte d'engagement / Marché
-                        <span class="bloom-level bloom-knowledge">Connaissance</span>
-                    </h3>
-                    <p class="branch-summary">Document principal du marché - Parties + Prix + Délais</p>
-                    <div class="pareto-badge">CRITIQUE - 25%</div>
-                    <div id="engagement" class="branch-details">
-                        <h4>Contenu essentiel :</h4>
-                        <ul>
-                            <li><strong>Parties contractantes</strong>
-                                <ul>
-                                    <li>Maître d'ouvrage</li>
-                                    <li>Entreprise / Groupement / Lot séparé</li>
-                                </ul>
-                            </li>
-                            <li><strong>Prix du marché</strong></li>
-                            <li><strong>Délais d'exécution</strong></li>
-                            <li>Identification précise des prestations</li>
-                        </ul>
-                        <div class="key-insight">
-                            💡 <strong>Principe Pareto :</strong> Document le plus simple mais le PLUS important juridiquement
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. CCAP (CRITIQUE - 25%) -->
-                <div class="branch pareto-critical" onclick="toggleDetails('ccap')">
-                    <h3>
-                        <span class="branch-icon">📑</span>
-                        CCAP - Cahier des Clauses Administratives Particulières
-                        <span class="bloom-level bloom-comprehension">Compréhension</span>
-                    </h3>
-                    <p class="branch-summary">2ème rang hiérarchique - Application du CCAG au marché particulier</p>
-                    <div class="pareto-badge">CRITIQUE - 25%</div>
-                    <div id="ccap" class="branch-details">
-                        <h4>Structure par rubriques :</h4>
-                        <ul>
-                            <li><strong>Communication entre parties</strong>
-                                <ul>
-                                    <li>Représentation des intervenants</li>
-                                    <li>Circuit de validation (visa MOE)</li>
-                                    <li>Limites de prestation entre lots</li>
-                                    <li>Ordres de service</li>
-                                    <li>Constats/Attachements</li>
-                                </ul>
-                            </li>
-                            <li><strong>Dispositions financières</strong>
-                                <ul>
-                                    <li>Délais et modalités de paiement</li>
-                                    <li>Demandes d'acompte</li>
-                                    <li>Retenue de garantie</li>
-                                    <li>Actualisation/révision des prix</li>
-                                    <li>Paiement sous-traitants</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="key-insight">
-                            ⚖️ <strong>Référence obligatoire :</strong> CCAG travaux (public) / Norme AFNOR (privé)
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. RÈGLEMENT DE CONSULTATION (ESSENTIEL - 15%) -->
-                <div class="branch pareto-essential" onclick="toggleDetails('reglement')">
-                    <h3>
-                        <span class="branch-icon">📋</span>
-                        Règlement de consultation
-                        <span class="bloom-level bloom-application">Application</span>
-                    </h3>
-                    <p class="branch-summary">Procédure de passation - Comment candidater</p>
-                    <div class="pareto-badge">ESSENTIEL - 15%</div>
-                    <div id="reglement" class="branch-details">
-                        <h4>Éléments clés :</h4>
-                        <ul>
-                            <li><strong>Procédure de passation</strong>
-                                <ul>
-                                    <li>Procédure adaptée</li>
-                                    <li>Appel d'offres</li>
-                                    <li>Procédure négociée</li>
-                                </ul>
-                            </li>
-                            <li><strong>Organisation du marché</strong>
-                                <ul>
-                                    <li>Lots séparés / unique</li>
-                                    <li>Groupements acceptés ?</li>
-                                    <li>Forme de groupement</li>
-                                </ul>
-                            </li>
-                            <li><strong>Modalités de réponse</strong>
-                                <ul>
-                                    <li>Documents à produire</li>
-                                    <li>Délais de réponse</li>
-                                    <li>Variantes acceptées ?</li>
-                                    <li>Options proposées ?</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- 4. CLAUSES FINANCIÈRES (ESSENTIEL - 15%) -->
-                <div class="branch pareto-essential" onclick="toggleDetails('financier')">
-                    <h3>
-                        <span class="branch-icon">💰</span>
-                        Clauses financières détaillées
-                        <span class="bloom-level bloom-analysis">Analyse</span>
-                    </h3>
-                    <p class="branch-summary">Modalités de paiement et gestion financière</p>
-                    <div class="pareto-badge">ESSENTIEL - 15%</div>
-                    <div id="financier" class="branch-details">
-                        <h4>Dispositions financières :</h4>
-                        <ul>
-                            <li><strong>Paiements</strong>
-                                <ul>
-                                    <li>Situations de travaux</li>
-                                    <li>Régime des avances</li>
-                                    <li>Retenue de garantie / caution</li>
-                                    <li>Décompte général définitif</li>
-                                </ul>
-                            </li>
-                            <li><strong>Révisions et pénalités</strong>
-                                <ul>
-                                    <li>Formules d'actualisation/révision</li>
-                                    <li>Pénalités de retard</li>
-                                    <li>Pénalités d'absence (réunions)</li>
-                                    <li>Primes éventuelles</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- 5. PRÉPARATION DE CHANTIER (IMPORTANT - 10%) -->
-                <div class="branch pareto-important" onclick="toggleDetails('chantier')">
-                    <h3>
-                        <span class="branch-icon">🏗️</span>
-                        Préparation de chantier
-                        <span class="bloom-level bloom-synthesis">Synthèse</span>
-                    </h3>
-                    <p class="branch-summary">Installations et organisation du chantier</p>
-                    <div class="pareto-badge">IMPORTANT - 10%</div>
-                    <div id="chantier" class="branch-details">
-                        <ul>
-                            <li>Besoins MOE/MOA → dimensionnement installations</li>
-                            <li>Plan d'installation de chantier (PIC)</li>
-                            <li>Dispositions de gardiennage</li>
-                            <li>Délais d'exécution des installations</li>
-                            <li>Financement des installations</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- 6. CLAUSES JURIDIQUES (IMPORTANT - 10%) -->
-                <div class="branch pareto-important" onclick="toggleDetails('juridique')">
-                    <h3>
-                        <span class="branch-icon">⚖️</span>
-                        Clauses juridiques
-                        <span class="bloom-level bloom-evaluation">Évaluation</span>
-                    </h3>
-                    <p class="branch-summary">Responsabilités, assurances, litiges</p>
-                    <div class="pareto-badge">IMPORTANT - 10%</div>
-                    <div id="juridique" class="branch-details">
-                        <h4>Aspects juridiques :</h4>
-                        <ul>
-                            <li><strong>Réglementations spécifiques</strong>
-                                <ul>
-                                    <li>⚠️ Liste non exhaustive</li>
-                                    <li>Applications particulières au projet</li>
-                                </ul>
-                            </li>
-                            <li><strong>Réception des travaux</strong>
-                                <ul>
-                                    <li>Organisation des opérations préalables</li>
-                                    <li>Levée des réserves</li>
-                                    <li>Quitus aux entreprises</li>
-                                </ul>
-                            </li>
-                            <li><strong>Responsabilités</strong>
-                                <ul>
-                                    <li>En cours de travaux</li>
-                                    <li>Après réception</li>
-                                    <li>Envers MOA et tiers</li>
-                                </ul>
-                            </li>
-                            <li><strong>Assurances obligatoires</strong>
-                                <ul>
-                                    <li>RC Professionnelle</li>
-                                    <li>Décennale (légalement obligatoire)</li>
-                                    <li>Attestations d'assurance</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- 7. QUALITÉ/SÉCURITÉ/ENVIRONNEMENT (COMPLÉMENTAIRE - Reste) -->
-                <div class="branch pareto-complementary" onclick="toggleDetails('qse')">
-                    <h3>
-                        <span class="branch-icon">🌱</span>
-                        Qualité / Sécurité / Environnement
-                        <span class="bloom-level bloom-application">Application</span>
-                    </h3>
-                    <p class="branch-summary">Contrôles, conformité, insertion sociale</p>
-                    <div class="pareto-badge">COMPLÉMENTAIRE</div>
-                    <div id="qse" class="branch-details">
-                        <h4>Processus de contrôle :</h4>
-                        <ul>
-                            <li><strong>Qualité</strong>
-                                <ul>
-                                    <li>Procédures de contrôle conformité</li>
-                                    <li>Documents de contrôle</li>
-                                    <li>Traitement des non-conformités</li>
-                                    <li>Pénalités applicables</li>
-                                </ul>
-                            </li>
-                            <li><strong>Environnement</strong>
-                                <ul>
-                                    <li>Modalités de contrôle</li>
-                                    <li>Processus identique à la qualité</li>
-                                </ul>
-                            </li>
-                            <li><strong>Insertion sociale</strong>
-                                <ul>
-                                    <li>Nombre d'heures imposées</li>
-                                    <li>Pourcentage du marché</li>
-                                    <li>Pénalités associées</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Quiz Interactif -->
-        <div id="quiz" class="content-section">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar"></div>
-            </div>
-            <div class="score" id="scoreDisplay">Score: 0/0</div>
-            
-            <div id="quizContainer"></div>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn" id="startQuiz" onclick="startQuiz()">Commencer le Quiz</button>
-                <button class="btn" id="nextQuestion" onclick="nextQuestion()" style="display: none;">Question Suivante</button>
-                <button class="btn" id="restartQuiz" onclick="restartQuiz()" style="display: none;">Recommencer</button>
-            </div>
-        </div>
-
-        <!-- Synthèse Pareto -->
-        <div id="pareto" class="content-section">
-            <div class="pareto-section">
-                <h2 style="color: #dc3545; margin-bottom: 20px;">🎯 Principe de Pareto - Module 7-1-3</h2>
-                
-                <div class="key-concept pareto-critical">
-                    <div class="importance-badge">CRITIQUE - 25%</div>
-                    <h3>1. Acte d'engagement</h3>
-                    <p><strong>Document PRINCIPAL du marché :</strong> Parties, prix, délais. Simple mais juridiquement fondamental. Détermine le succès de toute l'opération.</p>
-                </div>
-
-                <div class="key-concept pareto-critical">
-                    <div class="importance-badge">CRITIQUE - 25%</div>
-                    <h3>2. CCAP - Communication & Finance</h3>
-                    <p><strong>2ème rang hiérarchique :</strong> Gère les relations contractuelles. Communication entre parties + dispositions financières = 80% des litiges évités.</p>
-                </div>
-
-                <div class="key-concept pareto-essential">
-                    <div class="importance-badge">ESSENTIEL - 15%</div>
-                    <h3>3. Règlement de consultation</h3>
-                    <p><strong>Processus de sélection :</strong> Définit comment les entreprises candidatent. Détermine la qualité du pool d'entreprises consultées.</p>
-                </div>
-
-                <div class="key-concept pareto-essential">
-                    <div class="importance-badge">ESSENTIEL - 15%</div>
-                    <h3>4. Clauses financières détaillées</h3>
-                    <p><strong>Gestion des flux :</strong> Paiements, révisions, pénalités. Impact direct sur la rentabilité et les délais.</p>
-                </div>
-
-                <div class="key-concept pareto-important">
-                    <div class="importance-badge">IMPORTANT - 20%</div>
-                    <h3>5. Aspects juridiques et techniques</h3>
-                    <p><strong>Sécurisation juridique :</strong> Responsabilités, assurances, QSE. Préparation chantier. Complémentaire mais nécessaire.</p>
-                </div>
-
-                <div class="mnemonic-box">
-                    <h3 style="margin-bottom: 15px;">💡 Moyen Mnémotechnique</h3>
-                    <div class="mnemonic-letters">ACCRF</div>
-                    <p style="font-size: 1.1em; line-height: 1.6;">
-                        <strong>A</strong>cte + <strong>C</strong>CAP + <strong>C</strong>onsultation + <strong>R</strong>èglement + <strong>F</strong>inance
-                    </p>
-                    <div class="hierarchy-visual">
-                        <div style="font-weight: bold; color: #dc3545;">1️⃣ Acte d'engagement (BASE)</div>
-                        <div style="font-weight: bold; color: #dc3545;">2️⃣ CCAP (RELATIONS)</div>
-                        <div style="color: #fd7e14;">3️⃣ Règlement consultation</div>
-                        <div style="color: #fd7e14;">4️⃣ Clauses financières</div>
-                        <div style="color: #ffc107;">5️⃣ QSE + Juridique</div>
-                    </div>
-                </div>
-
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
-                    <h4>🔑 Clé de réussite Pareto :</h4>
-                    <p>Maîtriser parfaitement les <strong>50% critiques</strong> (Acte + CCAP) = 80% de réussite assurée !</p>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="back-nav">
+      <a href="../index.html" class="back-btn">← Retour à l'accueil</a>
     </div>
 
-    <script src="../assets/js/module-7-1-3.js"></script>
+    <div class="tab-container" role="tablist" aria-label="Navigation module">
+      <button class="tab-btn active" data-target="mindmap" type="button">🧠 Carte Mentale</button>
+      <button class="tab-btn" data-target="quiz" type="button">🎯 Quiz</button>
+      <button class="tab-btn" data-target="pareto" type="button">📊 Synthèse Pareto</button>
+    </div>
+
+    <!-- --- Carte mentale --- -->
+    <section id="mindmap" class="content-section active" aria-hidden="false">
+      <div class="central-node">🧠 Rédaction du DCE</div>
+
+      <div class="mindmap">
+        <div class="branch" role="button" tabindex="0" aria-expanded="false" data-target="engagement">
+          <div class="priority-badge">1</div>
+          <h3>📄 Acte d'engagement</h3>
+          <p class="branch-summary">Document principal : parties, prix, délais, forme du marché</p>
+          <div id="engagement" class="branch-details">
+            <ul>
+              <li>Parties contractantes (MOA / titulaire / groupement)</li>
+              <li>Prix, délais, modalités d'exécution</li>
+              <li>Forme du marché (lots séparés / entreprise générale)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch" role="button" tabindex="0" aria-expanded="false" data-target="reglement">
+          <div class="priority-badge">2</div>
+          <h3>📋 Règlement de consultation</h3>
+          <p class="branch-summary">Définit la procédure, variantes, annexes à produire</p>
+          <div id="reglement" class="branch-details">
+            <ul>
+              <li>Procédure de passation (MAPA / appel d'offre...)</li>
+              <li>Acceptation des variantes / options</li>
+              <li>Documents à produire (candidature / offre)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch" role="button" tabindex="0" aria-expanded="false" data-target="ccap">
+          <div class="priority-badge">3</div>
+          <h3>📑 CCAP (clauses administratives particulières)</h3>
+          <p class="branch-summary">Clauses financières, pénalités, préparation chantier</p>
+          <div id="ccap" class="branch-details">
+            <ul>
+              <li>Délais et modalités de paiement (situations, avances)</li>
+              <li>Retenue de garantie / caution / paiement direct</li>
+              <li>Pénalités en cas de retard ; primes éventuelles</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch" role="button" tabindex="0" aria-expanded="false" data-target="juridique">
+          <h3>🛡️ Clauses juridiques & assurances</h3>
+          <p class="branch-summary">Responsabilités, assurances, règlement des litiges</p>
+          <div id="juridique" class="branch-details">
+            <ul>
+              <li>Assurances: RC professionnelle, assurance décennale</li>
+              <li>Attribution de compétence / clause d'arbitrage</li>
+              <li>Clauses d'insertion sociale et sanctions</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch" role="button" tabindex="0" aria-expanded="false" data-target="qse">
+          <h3>🧪 Qualité / Sécurité / Environnement</h3>
+          <p class="branch-summary">Contrôles, non-conformités, gestion environnementale</p>
+          <div id="qse" class="branch-details">
+            <ul>
+              <li>Procédures de contrôle & documents de conformité</li>
+              <li>Traitement des non-conformités</li>
+              <li>Suivi environnemental et responsabilités</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --- Quiz --- -->
+    <section id="quiz" class="content-section" aria-hidden="true">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressBar" style="width:0%"></div>
+      </div>
+
+      <div class="score" id="scoreDisplay">Score: 0/0</div>
+
+      <div id="quizContainer"><!-- contenu généré par JS --></div>
+
+      <div style="text-align:center; margin-top:20px;">
+        <button class="btn" id="startQuiz">Commencer le Quiz</button>
+        <button class="btn" id="nextQuestion" style="display:none;">Question Suivante</button>
+        <button class="btn" id="restartQuiz" style="display:none;">Recommencer</button>
+      </div>
+    </section>
+
+    <!-- --- Synthèse Pareto 80/20 --- -->
+    <section id="pareto" class="content-section" aria-hidden="true">
+      <div class="pareto-section">
+        <h2 style="color:#ff6b6b;">🎯 Synthèse Pareto — Les 20% essentiels</h2>
+
+        <div class="key-concept">
+          <div class="importance-badge">CRITIQUE</div>
+          <h3>1. Acte d'engagement / marché</h3>
+          <p>Document contractuel de base : identifie les parties, le prix, les délais et la forme du marché.</p>
+        </div>
+
+        <div class="key-concept">
+          <div class="importance-badge">PRIORITAIRE</div>
+          <h3>2. Règlement de consultation</h3>
+          <p>Structure la passation : procédure, variantes, composants de l'offre et délais → influence l'attribution.</p>
+        </div>
+
+        <div class="key-concept">
+          <div class="importance-badge">ESSENTIEL</div>
+          <h3>3. CCAP (clauses administratives & financières)</h3>
+          <p>Paiement, révision des prix, retenue de garantie, pénalités — erreurs = risques financiers et litiges.</p>
+        </div>
+
+        <div class="key-concept">
+          <div class="importance-badge">IMPORTANT</div>
+          <h3>4. Clauses juridiques & QSE</h3>
+          <p>Assurances, responsabilité, conformité qualité/sécurité/environnement — protection juridique et conformité.</p>
+        </div>
+
+        <div style="margin-top:20px; background: rgba(102,126,234,0.06); padding:15px; border-radius:8px;">
+          <strong>Méthode rapide :</strong> Maîtrise ces 4 blocs pour couvrir ~80% des enjeux du module.
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Chemin du script : à adapter si besoin -->
+  <script src="../assets/js/module-7-1-3.js" defer></script>
 </body>
 </html>
